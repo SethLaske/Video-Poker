@@ -40,7 +40,6 @@ namespace VideoPoker
 
 		public void DisplayResults(Hand hand) {
 			winningText.text = hand.winningMessage;
-			Debug.Log(hand.winningMessage);
 			hand.winningEffect?.Invoke();
 		}
 

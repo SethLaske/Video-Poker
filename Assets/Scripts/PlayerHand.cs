@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using VideoPoker;
 
 namespace VideoPoker
 {
@@ -55,7 +54,7 @@ namespace VideoPoker
                 }
             }
 
-            
+
             Hand winningRank = GameManager.Instance.pokerHands.GetHandRank(GetCurrentCardArray());
 
             GameManager.Instance.EndGame(winningRank);
@@ -81,36 +80,42 @@ namespace VideoPoker
         private Card[] GetCurrentCardArray()
         {
             Card[] cards = new Card[playerCards.Length];
-            for (int i = 0; i < playerCards.Length; i++) {
+            for (int i = 0; i < playerCards.Length; i++)
+            {
                 cards[i] = playerCards[i].card;
             }
 
             return cards;
         }
     }
-}
 
-[Serializable]
-public class PlayerCard {
 
-    public Card card{ get; private set; }
-    CardUI cardUI;
-    public bool onHold = false;
+    [Serializable]
+    public class PlayerCard
+    {
 
-    public PlayerCard(CardUI cardUI) { 
-        this.cardUI = cardUI;
-    }
+        public Card card { get; private set; }
+        CardUI cardUI;
+        public bool onHold = false;
 
-    public void SetCard(Card newCard) { 
-        card = newCard;
-        onHold = false;
+        public PlayerCard(CardUI cardUI)
+        {
+            this.cardUI = cardUI;
+        }
 
-        cardUI.SetCardImage(card.sprite);
-        cardUI.SetHold(false);
-    }
+        public void SetCard(Card newCard)
+        {
+            card = newCard;
+            onHold = false;
 
-    public void ToggleCard() { 
-        onHold = !onHold;
-        cardUI.SetHold(onHold);
+            cardUI.SetCardImage(card.sprite);
+            cardUI.SetHold(false);
+        }
+
+        public void ToggleCard()
+        {
+            onHold = !onHold;
+            cardUI.SetHold(onHold);
+        }
     }
 }

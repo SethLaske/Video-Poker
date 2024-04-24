@@ -3,17 +3,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using VideoPoker;
 
-public abstract class GameRules : MonoBehaviour
+namespace VideoPoker
 {
-    public abstract Hand GetHandRank(Card[] newCards);
-}
+    public abstract class GameRules : ScriptableObject
+    {
+        public abstract Hand GetHandRank(Card[] newCards);
+        public abstract Hand[] GetAvailableHands();
+    }
 
-[Serializable]
-public class Hand {
-    public string name;
-    public int payout;
-    public string winningMessage;
-    public UnityEvent winningEffect;
+    [Serializable]
+    public class Hand
+    {
+        public string name;
+        public int payout;
+        public string winningMessage;
+        public UnityEvent winningEffect;
+    }
 }

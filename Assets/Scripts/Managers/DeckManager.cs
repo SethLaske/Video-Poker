@@ -27,7 +27,6 @@ namespace VideoPoker
 
                 if (i < normalCards)
                 {
-                    Debug.Log("Suit: " + i / 4 + " Value: " + i % 4);
                     newCard.suit = i / 13;
                     newCard.value = i % 13;
                 }
