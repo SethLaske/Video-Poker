@@ -9,12 +9,28 @@ namespace VideoPoker
     {
         [SerializeField] private float playerBalance = 20;
 
-        [SerializeField] public float currentBetSize = .25f;
-        public float EditBalance(float change)
+        [SerializeField] private float betSize = .25f;
+
+
+        public float ChangeBalance(float change)
         {
             playerBalance += change;
             GameManager.Instance.uiManager.UpdatePlayerBalance(playerBalance);
             return playerBalance;
+        }
+
+        public float ChangeBet(float change) {
+            if (GameManager.Instance.isGameActive) { 
+                return betSize;
+            }
+
+            float newBetSize = betSize + change;
+
+            if (newBetSize > 0 && newBetSize <= GameManager.Instance.gameRules.maxBetSize) { 
+                betSize = newBetSize;
+            }
+
+            return betSize;
         }
     }
 }

@@ -10,6 +10,8 @@ namespace VideoPoker
     {
         public abstract Hand GetHandRank(Card[] newCards);
         public abstract Hand[] GetAvailableHands();
+
+        public float maxBetSize;
     }
 
     [Serializable]

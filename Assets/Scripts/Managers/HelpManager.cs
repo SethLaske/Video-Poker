@@ -19,7 +19,7 @@ namespace VideoPoker
         }
 
         private void FillPayoutTable() { 
-            Hand[] payoutHands = GameManager.Instance.pokerHands.GetAvailableHands();
+            Hand[] payoutHands = GameManager.Instance.gameRules.GetAvailableHands();
 
             HandDisplayObject newObject = null;
             foreach (Hand hand in payoutHands)

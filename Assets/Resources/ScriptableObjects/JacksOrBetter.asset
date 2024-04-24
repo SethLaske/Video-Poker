@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5fad3d77804628458e61658b98d7f5f, type: 3}
   m_Name: JacksOrBetter
   m_EditorClassIdentifier: 
+  maxBetSize: 1
   royalFlush:
     name: Royal Flush
     payout: 800

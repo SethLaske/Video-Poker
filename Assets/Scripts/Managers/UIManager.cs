@@ -15,7 +15,10 @@ namespace VideoPoker
 		[SerializeField]
 		private Text winningText = null;
 
-		[SerializeField]
+        [SerializeField]
+        private Text betText = null;
+
+        [SerializeField]
 		private Button betButton = null;
 
         [SerializeField]
@@ -24,7 +27,15 @@ namespace VideoPoker
 		[SerializeField]
 		private Button helpButton = null;
 
-		[SerializeField] private string defaultGameMessage;
+		[SerializeField]
+		private Button increaseBetButton = null;
+
+		[SerializeField]
+		private Button decreaseBetButton = null;
+
+        [SerializeField] private string introGameMessage;
+        [SerializeField] private string defaultGameMessage;
+		[SerializeField] private float betIncrements;
         //-//////////////////////////////////////////////////////////////////////
         /// 
         void Awake()
@@ -38,10 +49,16 @@ namespace VideoPoker
 			betButton.onClick.AddListener(OnBetButtonPressed);
 			drawButton.onClick.AddListener(OnDrawButtonPressed);
 			helpButton.onClick.AddListener(OnHelpButtonPressed);
+			increaseBetButton.onClick.AddListener(OnIncreaseBetButtonPressed);
+			decreaseBetButton.onClick.AddListener(OnDecreaseBetButtonPressed);
             
 			betButton.interactable = true;
             drawButton.interactable = false;
-		}
+
+            winningText.text = introGameMessage;
+            UpdatePlayerBalance(GameManager.Instance.playerBalanceManager.ChangeBalance(0));
+            betText.text = "Bet: " + GameManager.Instance.playerBalanceManager.ChangeBet(0);
+        }
 
 		public void DisplayResults(Hand hand) {
 			winningText.text = hand.winningMessage;
@@ -73,5 +90,13 @@ namespace VideoPoker
 		private void OnHelpButtonPressed() { 
 			GameManager.Instance.helpManager.TogglePayoutTable();
 		}
+
+		private void OnIncreaseBetButtonPressed() {
+			betText.text = "Bet: " + GameManager.Instance.playerBalanceManager.ChangeBet(betIncrements);
+		}
+
+		private void OnDecreaseBetButtonPressed() {
+            betText.text = "Bet: " + GameManager.Instance.playerBalanceManager.ChangeBet(-1 * betIncrements);
+        }
 	}
 }

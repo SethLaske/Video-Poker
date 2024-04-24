@@ -55,7 +55,7 @@ namespace VideoPoker
             }
 
 
-            Hand winningRank = GameManager.Instance.pokerHands.GetHandRank(GetCurrentCardArray());
+            Hand winningRank = GameManager.Instance.gameRules.GetHandRank(GetCurrentCardArray());
 
             GameManager.Instance.EndGame(winningRank);
             //Debug.Log("The winning multiplier is: " + winningMultiplier);
@@ -68,6 +68,10 @@ namespace VideoPoker
 
         public void ToggleCard(int index)
         {
+            if (!GameManager.Instance.isGameActive) {
+                return;
+            }
+
             if (index >= playerCards.Length || index < 0)
             {
                 Debug.LogError("Toggling out of bounds: " + index);
