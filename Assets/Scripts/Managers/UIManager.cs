@@ -18,9 +18,12 @@ namespace VideoPoker
 		[SerializeField]
 		private Button betButton = null;
 
-		//-//////////////////////////////////////////////////////////////////////
-		/// 
-		void Awake()
+        [SerializeField]
+        private Button drawButton = null;
+
+        //-//////////////////////////////////////////////////////////////////////
+        /// 
+        void Awake()
 		{
 		}
 
@@ -29,6 +32,10 @@ namespace VideoPoker
 		void Start()
 		{
 			betButton.onClick.AddListener(OnBetButtonPressed);
+			drawButton.onClick.AddListener(OnDrawButtonPressed);
+            
+			betButton.interactable = true;
+            drawButton.interactable = false;
 		}
 
 		//-//////////////////////////////////////////////////////////////////////
@@ -38,7 +45,14 @@ namespace VideoPoker
 		private void OnBetButtonPressed()
 		{
 			GameManager.Instance.StartGame();
-			
+			betButton.interactable = false;
+			drawButton.interactable = true;
 		}
+
+		private void OnDrawButtonPressed() { 
+			GameManager.Instance.playerHand.DrawNewCards();
+            betButton.interactable = true;
+            drawButton.interactable = false;
+        }
 	}
 }

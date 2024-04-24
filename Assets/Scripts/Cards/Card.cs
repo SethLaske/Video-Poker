@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace VideoPoker
 {
-    public class Card : MonoBehaviour
+    public class Card
     {
         //public Suit CardSuit;
         public int suit;

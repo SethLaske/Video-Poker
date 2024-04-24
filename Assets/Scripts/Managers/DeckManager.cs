@@ -9,26 +9,30 @@ namespace VideoPoker
     {
         [Tooltip ("Sprites should be sorted by Suit then ordered Ace to King")]
         [SerializeField] private List<Sprite> cardSprites; 
+
         [SerializeField] private int normalCards = 52;
+
         private List<Card> availableCards = new List<Card>();
+        private List<Card> drawnCards = new List<Card>();
 
-        
-        public void ShuffleDeck() { 
+        private void Start()
+        {
             availableCards.Clear();
+            drawnCards.Clear();
 
-
-            
-            for (int i = 0; i < cardSprites.Count; i++) {
+            for (int i = 0; i < cardSprites.Count; i++)
+            {
 
                 Card newCard = new Card();
 
                 if (i < normalCards)
                 {
-                    Debug.Log("Suit: " + i/4 + " Value: " + i%4);
+                    Debug.Log("Suit: " + i / 4 + " Value: " + i % 4);
                     newCard.suit = i / 13;
                     newCard.value = i % 13;
                 }
-                else {
+                else
+                {
                     newCard.suit = -1;
                     newCard.value = -1;
                 }
@@ -36,8 +40,13 @@ namespace VideoPoker
                 newCard.sprite = cardSprites[i];
 
                 availableCards.Add(newCard);
-
             }
+        }
+
+        public void ShuffleDeck() {
+            availableCards.AddRange(drawnCards);
+
+            drawnCards.Clear();
         }
 
         public Card DrawCard() {

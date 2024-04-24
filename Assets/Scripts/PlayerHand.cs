@@ -41,6 +41,14 @@ public class PlayerHand : MonoBehaviour
         }
     }
 
+    public void DrawNewCards() {
+        for (int i = 0; i < playerCards.Length; i++) {
+            if (playerCards[i].onHold == false) {
+                SetCard(i, GameManager.Instance.deckManager.DrawCard());
+            }
+        }
+    }
+
     public void SetCard(int index, Card newCard) {
         playerCards[index].SetCard(newCard);
     }
@@ -58,7 +66,7 @@ public class PlayerHand : MonoBehaviour
 public class PlayerCard {
     Card card;
     CardUI cardUI;
-    bool onHold = false;
+    public bool onHold = false;
 
     public PlayerCard(CardUI cardUI) { 
         this.cardUI = cardUI;
