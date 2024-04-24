@@ -85,6 +85,8 @@ namespace VideoPoker
 			drawButton.interactable = true;
             increaseBetButton.interactable = false;
             decreaseBetButton.interactable = false;
+
+            GameManager.Instance.audioManager.PlaySound(GameManager.Instance.audioManager.buttonPress);
         }
 
 		private void OnDrawButtonPressed() { 
@@ -94,18 +96,26 @@ namespace VideoPoker
             drawButton.interactable = false;
             increaseBetButton.interactable = true;
             decreaseBetButton.interactable = true;
+
+            GameManager.Instance.audioManager.PlaySound(GameManager.Instance.audioManager.buttonPress);
         }
 
 		private void OnHelpButtonPressed() { 
 			GameManager.Instance.helpManager.TogglePayoutTable();
-		}
+
+            GameManager.Instance.audioManager.PlaySound(GameManager.Instance.audioManager.buttonPress);
+        }
 
 		private void OnIncreaseBetButtonPressed() {
 			betText.text = "Bet: $" + GameManager.Instance.playerBalanceManager.ChangeBet(betIncrements);
-		}
+
+            GameManager.Instance.audioManager.PlaySound(GameManager.Instance.audioManager.buttonPress);
+        }
 
 		private void OnDecreaseBetButtonPressed() {
             betText.text = "Bet: $" + GameManager.Instance.playerBalanceManager.ChangeBet(-1 * betIncrements);
+
+            GameManager.Instance.audioManager.PlaySound(GameManager.Instance.audioManager.buttonPress);
         }
 	}
 }

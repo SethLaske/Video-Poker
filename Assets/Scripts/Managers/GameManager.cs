@@ -15,6 +15,7 @@ namespace VideoPoker
 		[SerializeField] public PlayerBalanceManager playerBalanceManager;
 		[SerializeField] public HelpManager helpManager;
 		[SerializeField] public EffectManager effectManager;
+		[SerializeField] public AudioManager audioManager;
 
 		[SerializeField] public PlayerHand playerHand;
 
@@ -68,7 +69,11 @@ namespace VideoPoker
 			float playerGain = playerBalanceManager.ChangeBet(0) * highestHand.payout;
 
             playerBalanceManager.ChangeBalance(playerGain);
-			effectManager.EndGameEffects(highestHand, playerGain);
+
+			if (highestHand.payout > 0) { 
+				effectManager.EndGameEffects(highestHand, playerGain);
+				audioManager.PlaySound(audioManager.winSound);
+			}
 		}
 	}
 }

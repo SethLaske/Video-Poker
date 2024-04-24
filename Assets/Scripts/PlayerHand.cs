@@ -111,12 +111,16 @@ namespace VideoPoker
 
             cardUI.SetCardImage(card.sprite);
             cardUI.SetHold(false);
+
+            GameManager.Instance.audioManager.PlaySound(GameManager.Instance.audioManager.cardDeal);
         }
 
         public void ToggleCard()
         {
             onHold = !onHold;
             cardUI.SetHold(onHold);
+
+            GameManager.Instance.audioManager.PlaySound(GameManager.Instance.audioManager.cardPress);
         }
     }
 }

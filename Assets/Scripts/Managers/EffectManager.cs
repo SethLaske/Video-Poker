@@ -43,15 +43,14 @@ namespace VideoPoker
 
         public void EndGameEffects(Hand highestHand, float playerGain)
         {
-            if (highestHand.payout > 0)
-            {
-                AddTextEffectToQueue(new TextEffect(2, "+ $" + playerGain.ToString("F2")));
+            
+            AddTextEffectToQueue(new TextEffect(2, "+ $" + playerGain.ToString("F2")));
 
-                if (highestHand.payout > 3)
-                {
-                    PlayParticles();
-                }
+            if (highestHand.payout > 3)
+            {
+                PlayParticles();
             }
+            
         }
 
 
