@@ -21,6 +21,7 @@ namespace VideoPoker
         [SerializeField]
         private Button drawButton = null;
 
+		[SerializeField] private string defaultGameMessage;
         //-//////////////////////////////////////////////////////////////////////
         /// 
         void Awake()
@@ -53,6 +54,7 @@ namespace VideoPoker
 		/// 
 		private void OnBetButtonPressed()
 		{
+			winningText.text = defaultGameMessage;
 			GameManager.Instance.StartGame();
 			betButton.interactable = false;
 			drawButton.interactable = true;

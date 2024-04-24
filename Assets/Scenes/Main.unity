@@ -1048,6 +1048,7 @@ MonoBehaviour:
   winningText: {fileID: 896960749}
   betButton: {fileID: 846343465}
   drawButton: {fileID: 1991318408}
+  defaultGameMessage: Jacks or Better
 --- !u!1 &922446989
 GameObject:
   m_ObjectHideFlags: 0
