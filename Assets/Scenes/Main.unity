@@ -1147,12 +1147,6 @@ MonoBehaviour:
   - {fileID: 1290637261}
   - {fileID: 1487786927}
   - {fileID: 1596305074}
-  cards:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!1 &970516335
 GameObject:
   m_ObjectHideFlags: 0

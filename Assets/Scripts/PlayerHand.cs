@@ -6,26 +6,76 @@ using VideoPoker;
 public class PlayerHand : MonoBehaviour
 {
     [SerializeField] private CardUI[] cardUIs = new CardUI[5];
-    [SerializeField] private Card[] cards = new Card[5];
+    private PlayerCard[] playerCards;
 
+    private void Start()
+    {
 
+        playerCards = new PlayerCard[cardUIs.Length];
+        for (int i = 0; i < cardUIs.Length; i++)
+        {
+            int index = i;
+            cardUIs[i].cardButton.onClick.AddListener(()  => ToggleCard(index));
+
+            PlayerCard newPlayerCard = new PlayerCard(cardUIs[i]);
+            playerCards[i] = newPlayerCard;
+        }
+
+        ResetHand();
+    }
     public void ResetHand()
     {
-        Sprite defaultSprite = GameManager.Instance.deckManager.GetDefaultCard().sprite;
-        foreach (CardUI card in cardUIs) {
-            card.SetHold(false);
-            card.SetCardImage(defaultSprite);
+        Card defaultCard = GameManager.Instance.deckManager.GetDefaultCard();
+        
+        //Debug.Log("Card UIs Length: " + cardUIs.Length);
+        //Debug.Log("Player Cards Length: " + playerCards.Length);
+
+        foreach (PlayerCard card in playerCards) {
+            card.SetCard(defaultCard);
         }
     }
 
     public void NewHand() {
-        for (int i = 0; i < cards.Length; i ++) {
+        for (int i = 0; i < playerCards.Length; i ++) {
             SetCard(i, GameManager.Instance.deckManager.DrawCard());
         }
     }
 
     public void SetCard(int index, Card newCard) {
-        cards[index] = newCard;
-        cardUIs[index].SetCardImage(newCard.sprite);
+        playerCards[index].SetCard(newCard);
+    }
+
+    public void ToggleCard(int index) { 
+        if (index >= playerCards.Length || index < 0) {
+            Debug.LogError("Toggling out of bounds: " + index);
+            return;
+        }
+
+        playerCards[index].ToggleCard();
+    }
+}
+
+public class PlayerCard {
+    Card card;
+    CardUI cardUI;
+    bool onHold = false;
+
+    public PlayerCard(CardUI cardUI) { 
+        this.cardUI = cardUI;
+
+
+    }
+
+    public void SetCard(Card newCard) { 
+        card = newCard;
+        onHold = false;
+
+        cardUI.SetCardImage(card.sprite);
+        cardUI.SetHold(false);
+    }
+
+    public void ToggleCard() { 
+        onHold = !onHold;
+        cardUI.SetHold(onHold);
     }
 }

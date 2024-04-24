@@ -32,7 +32,7 @@ namespace VideoPoker
 		/// 
 		void Start()
 		{
-			playerHand.ResetHand();
+			//playerHand.ResetHand();
 		}
 		
 		//-//////////////////////////////////////////////////////////////////////
