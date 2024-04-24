@@ -37,6 +37,8 @@ namespace VideoPoker
 		/// 
 		private void OnBetButtonPressed()
 		{
+			GameManager.Instance.StartGame();
+			
 		}
 	}
 }
