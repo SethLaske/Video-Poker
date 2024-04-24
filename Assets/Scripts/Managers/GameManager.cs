@@ -14,6 +14,7 @@ namespace VideoPoker
 		[SerializeField] public DeckManager deckManager;
 
 		[SerializeField] public PlayerHand playerHand;
+		public PayTable payTable;
 
 		//-//////////////////////////////////////////////////////////////////////
 		/// 

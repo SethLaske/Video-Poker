@@ -1,12 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace VideoPoker
 {
+    [Serializable]
     public class Card
     {
-        public int suit;
+        [SerializeField] public int suit;
 
         public int value;
 

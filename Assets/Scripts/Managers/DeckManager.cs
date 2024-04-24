@@ -57,7 +57,7 @@ namespace VideoPoker
 
             int index = Random.Range(0, availableCards.Count);
             Card drawnCard = availableCards[index];
-
+            drawnCards.Add(drawnCard);
             availableCards.RemoveAt(index);
 
             return drawnCard;

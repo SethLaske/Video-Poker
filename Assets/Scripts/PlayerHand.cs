@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +9,7 @@ namespace VideoPoker
     public class PlayerHand : MonoBehaviour
     {
         [SerializeField] private CardUI[] cardUIs = new CardUI[5];
-        private PlayerCard[] playerCards;
+        [SerializeField] private PlayerCard[] playerCards;
 
         private void Start()
         {
@@ -53,6 +54,11 @@ namespace VideoPoker
                     SetCard(i, GameManager.Instance.deckManager.DrawCard());
                 }
             }
+
+            
+            int winningMultiplier = GameManager.Instance.payTable.GetPayout(GetCurrentCardArray());
+
+            Debug.Log("The winning multiplier is: " + winningMultiplier);
         }
 
         public void SetCard(int index, Card newCard)
@@ -70,12 +76,23 @@ namespace VideoPoker
 
             playerCards[index].ToggleCard();
         }
+
+        private Card[] GetCurrentCardArray()
+        {
+            Card[] cards = new Card[playerCards.Length];
+            for (int i = 0; i < playerCards.Length; i++) {
+                cards[i] = playerCards[i].card;
+            }
+
+            return cards;
+        }
     }
 }
 
+[Serializable]
 public class PlayerCard {
 
-    Card card;
+    public Card card{ get; private set; }
     CardUI cardUI;
     public bool onHold = false;
 
