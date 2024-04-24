@@ -170,8 +170,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiManager: {fileID: 915999043}
   deckManager: {fileID: 388090480}
+  playerBalanceManager: {fileID: 1147484184}
   playerHand: {fileID: 945153162}
-  payTable: {fileID: 1006453015}
+  pokerHands: {fileID: 1006453015}
 --- !u!1 &47225193
 GameObject:
   m_ObjectHideFlags: 0
@@ -402,6 +403,7 @@ Transform:
   - {fileID: 915999042}
   - {fileID: 388090479}
   - {fileID: 1006453014}
+  - {fileID: 1147484183}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1043,8 +1045,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a156d60f30d946bfa1ec45732c60878, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentBalanceText: {fileID: 896960749}
-  winningText: {fileID: 47225195}
+  currentBalanceText: {fileID: 47225195}
+  winningText: {fileID: 896960749}
   betButton: {fileID: 846343465}
   drawButton: {fileID: 1991318408}
 --- !u!1 &922446989
@@ -1230,6 +1232,7 @@ MonoBehaviour:
   - {fileID: 1290637261}
   - {fileID: 1487786927}
   - {fileID: 1596305074}
+  playerCards: []
 --- !u!1 &970516335
 GameObject:
   m_ObjectHideFlags: 0
@@ -1274,7 +1277,7 @@ GameObject:
   - component: {fileID: 1006453014}
   - component: {fileID: 1006453015}
   m_Layer: 0
-  m_Name: PayTable
+  m_Name: PokerHands
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1307,6 +1310,76 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5fad3d77804628458e61658b98d7f5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  royalFlush:
+    name: Royal Flush
+    payout: 800
+    winningMessage: Congratulations, you hit the jackpot with a Royal Flush!
+    winningEffect:
+      m_PersistentCalls:
+        m_Calls: []
+  straightFlush:
+    name: Straight Flush
+    payout: 50
+    winningMessage: Excellent, Straight Flush!
+    winningEffect:
+      m_PersistentCalls:
+        m_Calls: []
+  quads:
+    name: Four of a Kind
+    payout: 25
+    winningMessage: Great, Four of a Kind!
+    winningEffect:
+      m_PersistentCalls:
+        m_Calls: []
+  fullHouse:
+    name: Full House
+    payout: 9
+    winningMessage: Full House!
+    winningEffect:
+      m_PersistentCalls:
+        m_Calls: []
+  flush:
+    name: Flush
+    payout: 6
+    winningMessage: Flush!
+    winningEffect:
+      m_PersistentCalls:
+        m_Calls: []
+  straight:
+    name: Straight
+    payout: 4
+    winningMessage: Straight!
+    winningEffect:
+      m_PersistentCalls:
+        m_Calls: []
+  trips:
+    name: Three of a Kind
+    payout: 3
+    winningMessage: Three of a Kind!
+    winningEffect:
+      m_PersistentCalls:
+        m_Calls: []
+  twoPair:
+    name: Two Pair
+    payout: 2
+    winningMessage: Two Pair!
+    winningEffect:
+      m_PersistentCalls:
+        m_Calls: []
+  jackOrBetter:
+    name: Jacks or Better
+    payout: 1
+    winningMessage: Jacks or Better!
+    winningEffect:
+      m_PersistentCalls:
+        m_Calls: []
+  nothing:
+    name: Nothing
+    payout: 0
+    winningMessage: 'Better luck next time! '
+    winningEffect:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!1 &1055405309
 GameObject:
   m_ObjectHideFlags: 0
@@ -1373,6 +1446,51 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!1 &1147484182
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1147484183}
+  - component: {fileID: 1147484184}
+  m_Layer: 0
+  m_Name: PlayerBalanceManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1147484183
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1147484182}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 370828693}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1147484184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1147484182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e329d22ac7fc554aa052e4dc3666553, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerBalance: 20
 --- !u!1001 &1290637257
 PrefabInstance:
   m_ObjectHideFlags: 0

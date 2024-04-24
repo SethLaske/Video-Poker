@@ -12,9 +12,10 @@ namespace VideoPoker
 
 		[SerializeField] public UIManager uiManager;
 		[SerializeField] public DeckManager deckManager;
+		[SerializeField] public PlayerBalanceManager playerBalanceManager;
 
 		[SerializeField] public PlayerHand playerHand;
-		public PayTable payTable;
+		public GameRules pokerHands;
 
 		//-//////////////////////////////////////////////////////////////////////
 		/// 
@@ -43,9 +44,16 @@ namespace VideoPoker
 		}
 
 		public void StartGame() {
+			playerBalanceManager.EditBalance(-1 * playerBalanceManager.currentBetSize);
+
 			deckManager.ShuffleDeck();
 			playerHand.ResetHand();
 			playerHand.NewHand();
+		}
+
+		public void EndGame(Hand highestHand) { 
+			uiManager.DisplayResults(highestHand);
+			playerBalanceManager.EditBalance(playerBalanceManager.currentBetSize * highestHand.payout);
 		}
 	}
 }

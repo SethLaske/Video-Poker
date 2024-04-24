@@ -56,9 +56,10 @@ namespace VideoPoker
             }
 
             
-            int winningMultiplier = GameManager.Instance.payTable.GetPayout(GetCurrentCardArray());
+            Hand winningRank = GameManager.Instance.pokerHands.GetHandRank(GetCurrentCardArray());
 
-            Debug.Log("The winning multiplier is: " + winningMultiplier);
+            GameManager.Instance.EndGame(winningRank);
+            //Debug.Log("The winning multiplier is: " + winningMultiplier);
         }
 
         public void SetCard(int index, Card newCard)

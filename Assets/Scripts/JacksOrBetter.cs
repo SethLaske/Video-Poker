@@ -5,21 +5,23 @@ using System.Linq;
 using UnityEngine;
 using VideoPoker;
 
-public class PayTable : MonoBehaviour
+public class JacksOrBetter : GameRules
 {
-    [SerializeField] private int royalFlushPayout = 800;
-    [SerializeField] private int straightFlushPayout = 50;
-    [SerializeField] private int quadsPayout = 25;
-    [SerializeField] private int fullHousePayout = 9;
-    [SerializeField] private int flushPayout = 6;
-    [SerializeField] private int straightPayout = 4;
-    [SerializeField] private int tripsPayout = 3;
-    [SerializeField] private int twoPairPayout = 2;
-    [SerializeField] private int jackOrBetterPayout = 1;
+    [SerializeField] private Hand royalFlush;
+    [SerializeField] private Hand straightFlush;
+    [SerializeField] private Hand quads;
+    [SerializeField] private Hand fullHouse;
+    [SerializeField] private Hand flush;
+    [SerializeField] private Hand straight;
+    [SerializeField] private Hand trips;
+    [SerializeField] private Hand twoPair;
+    [SerializeField] private Hand jackOrBetter;
+
+    [SerializeField] private Hand nothing;
 
 
     private Card[] cards;
-    public int GetPayout(Card[] newCards) {
+    public override Hand GetHandRank(Card[] newCards) {
         cards = SortCardsByValue(newCards);
 
         /*for (int i = 0; i < cards.Length; i++) {
@@ -35,52 +37,52 @@ public class PayTable : MonoBehaviour
             //If its a valid straight, then checking for the ace and king is enough to ensure its royal
             if (cards[0].value == 0 && cards[4].value == 12)
             {
-                return royalFlushPayout;
+                return royalFlush;
             }
 
-            return straightFlushPayout;
+            return straightFlush;
         }
 
         if (isFlush)
         {
-            return flushPayout;
+            return flush;
         }
 
         if (isStraight)
         {
-            return straightPayout;
+            return straight;
         }
 
         Dictionary<int, int> valueCounts = GetValueCounts();
 
         if (valueCounts.Count >= 5) {
             //5 unique cards that form neither straight nor flush results in nothing
-            return 0;
+            return nothing;
         }
 
         if (valueCounts.Count == 2) {
             if (valueCounts.ContainsValue(4)) { 
-                return quadsPayout;
+                return quads;
             }
-            return fullHousePayout;
+            return fullHouse;
         }
 
         if (valueCounts.Count == 3) {
             if (valueCounts.ContainsValue(3))
             {
-                return tripsPayout;
+                return trips;
             }
-            return twoPairPayout;
+            return twoPair;
         }
 
         for (int i = 10; i <= 13; i++) {
             int value = i % 13;
             if (valueCounts.ContainsKey(value) && valueCounts[value] > 1) { 
-                return jackOrBetterPayout;
+                return jackOrBetter;
             }
         }
 
-        return 0;
+        return nothing;
     }
 
     //ChatGPT

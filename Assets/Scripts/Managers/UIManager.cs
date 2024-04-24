@@ -38,6 +38,16 @@ namespace VideoPoker
             drawButton.interactable = false;
 		}
 
+		public void DisplayResults(Hand hand) {
+			winningText.text = hand.winningMessage;
+			Debug.Log(hand.winningMessage);
+			hand.winningEffect?.Invoke();
+		}
+
+		public void UpdatePlayerBalance(float newBalance) { 
+			currentBalanceText.text = "Player Balance: $" + newBalance.ToString("F2");
+		}
+
 		//-//////////////////////////////////////////////////////////////////////
 		///
 		/// Event that triggers when bet button is pressed
