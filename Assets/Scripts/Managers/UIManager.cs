@@ -21,6 +21,9 @@ namespace VideoPoker
         [SerializeField]
         private Button drawButton = null;
 
+		[SerializeField]
+		private Button helpButton = null;
+
 		[SerializeField] private string defaultGameMessage;
         //-//////////////////////////////////////////////////////////////////////
         /// 
@@ -34,6 +37,7 @@ namespace VideoPoker
 		{
 			betButton.onClick.AddListener(OnBetButtonPressed);
 			drawButton.onClick.AddListener(OnDrawButtonPressed);
+			helpButton.onClick.AddListener(OnHelpButtonPressed);
             
 			betButton.interactable = true;
             drawButton.interactable = false;
@@ -65,5 +69,9 @@ namespace VideoPoker
             betButton.interactable = true;
             drawButton.interactable = false;
         }
+
+		private void OnHelpButtonPressed() { 
+			GameManager.Instance.helpManager.TogglePayoutTable();
+		}
 	}
 }

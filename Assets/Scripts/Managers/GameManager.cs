@@ -13,6 +13,7 @@ namespace VideoPoker
 		[SerializeField] public UIManager uiManager;
 		[SerializeField] public DeckManager deckManager;
 		[SerializeField] public PlayerBalanceManager playerBalanceManager;
+		[SerializeField] public HelpManager helpManager;
 
 		[SerializeField] public PlayerHand playerHand;
 		public GameRules pokerHands;
