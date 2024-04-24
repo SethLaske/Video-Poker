@@ -6,16 +6,14 @@ namespace VideoPoker
 {
     public class Card
     {
-        //public Suit CardSuit;
         public int suit;
 
-        //public Value CardValue;
         public int value;
 
         public Sprite sprite;
 
 
-        public enum Suit
+        /*public enum Suit
         {
             Club,
             Diamond,
@@ -37,6 +35,6 @@ namespace VideoPoker
             Jack,
             Queen,
             King
-        }
+        }*/
     }
 }
