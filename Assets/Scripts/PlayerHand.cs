@@ -54,10 +54,7 @@ namespace VideoPoker
                 }
             }
 
-
-            Hand winningRank = GameManager.Instance.gameRules.GetHandRank(GetCurrentCardArray());
-
-            GameManager.Instance.EndGame(winningRank);
+            GameManager.Instance.EndGame();
             //Debug.Log("The winning multiplier is: " + winningMultiplier);
         }
 
@@ -81,7 +78,7 @@ namespace VideoPoker
             playerCards[index].ToggleCard();
         }
 
-        private Card[] GetCurrentCardArray()
+        public Card[] GetCurrentCardArray()
         {
             Card[] cards = new Card[playerCards.Length];
             for (int i = 0; i < playerCards.Length; i++)

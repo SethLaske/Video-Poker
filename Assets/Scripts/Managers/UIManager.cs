@@ -54,10 +54,13 @@ namespace VideoPoker
             
 			betButton.interactable = true;
             drawButton.interactable = false;
+			helpButton.interactable = true;
+			increaseBetButton.interactable = true;
+			decreaseBetButton.interactable = true;
 
             winningText.text = introGameMessage;
             UpdatePlayerBalance(GameManager.Instance.playerBalanceManager.ChangeBalance(0));
-            betText.text = "Bet: " + GameManager.Instance.playerBalanceManager.ChangeBet(0);
+            betText.text = "Bet: $" + GameManager.Instance.playerBalanceManager.ChangeBet(0);
         }
 
 		public void DisplayResults(Hand hand) {
@@ -66,7 +69,7 @@ namespace VideoPoker
 		}
 
 		public void UpdatePlayerBalance(float newBalance) { 
-			currentBalanceText.text = "Player Balance: $" + newBalance.ToString("F2");
+			currentBalanceText.text = "Balance: $" + newBalance.ToString("F2");
 		}
 
 		//-//////////////////////////////////////////////////////////////////////
@@ -77,14 +80,20 @@ namespace VideoPoker
 		{
 			winningText.text = defaultGameMessage;
 			GameManager.Instance.StartGame();
+
 			betButton.interactable = false;
 			drawButton.interactable = true;
-		}
+            increaseBetButton.interactable = false;
+            decreaseBetButton.interactable = false;
+        }
 
 		private void OnDrawButtonPressed() { 
 			GameManager.Instance.playerHand.DrawNewCards();
+
             betButton.interactable = true;
             drawButton.interactable = false;
+            increaseBetButton.interactable = true;
+            decreaseBetButton.interactable = true;
         }
 
 		private void OnHelpButtonPressed() { 
@@ -92,11 +101,11 @@ namespace VideoPoker
 		}
 
 		private void OnIncreaseBetButtonPressed() {
-			betText.text = "Bet: " + GameManager.Instance.playerBalanceManager.ChangeBet(betIncrements);
+			betText.text = "Bet: $" + GameManager.Instance.playerBalanceManager.ChangeBet(betIncrements);
 		}
 
 		private void OnDecreaseBetButtonPressed() {
-            betText.text = "Bet: " + GameManager.Instance.playerBalanceManager.ChangeBet(-1 * betIncrements);
+            betText.text = "Bet: $" + GameManager.Instance.playerBalanceManager.ChangeBet(-1 * betIncrements);
         }
 	}
 }

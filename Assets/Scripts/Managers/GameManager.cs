@@ -14,6 +14,7 @@ namespace VideoPoker
 		[SerializeField] public DeckManager deckManager;
 		[SerializeField] public PlayerBalanceManager playerBalanceManager;
 		[SerializeField] public HelpManager helpManager;
+		[SerializeField] public EffectManager effectManager;
 
 		[SerializeField] public PlayerHand playerHand;
 
@@ -44,6 +45,7 @@ namespace VideoPoker
 		/// 
 		void Update()
 		{
+			effectManager.Tick(Time.deltaTime);
 		}
 
 		public void StartGame() {
@@ -56,11 +58,17 @@ namespace VideoPoker
 			playerHand.NewHand();
 		}
 
-		public void EndGame(Hand highestHand) { 
+		public void EndGame() { 
 			isGameActive = false;
 
-			uiManager.DisplayResults(highestHand);
-			playerBalanceManager.ChangeBalance(playerBalanceManager.ChangeBet(0) * highestHand.payout);
+            Hand highestHand = gameRules.GetHandRank(playerHand.GetCurrentCardArray());
+
+            uiManager.DisplayResults(highestHand);
+
+			float playerGain = playerBalanceManager.ChangeBet(0) * highestHand.payout;
+
+            playerBalanceManager.ChangeBalance(playerGain);
+			effectManager.EndGameEffects(highestHand, playerGain);
 		}
 	}
 }
