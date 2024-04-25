@@ -853,6 +853,7 @@ MonoBehaviour:
   buttonPress: {fileID: 8300000, guid: 32d4b1811dda14a6cb9e059ee8ad17d2, type: 3}
   cardPress: {fileID: 8300000, guid: 81652031b64c342cc8dbc59c138d77c5, type: 3}
   cardDeal: {fileID: 8300000, guid: fe0b1f9aeb45b41b089175aeeabd5d95, type: 3}
+  buttonReject: {fileID: 8300000, guid: b43d102aac6b145468dcaa94a5cccae1, type: 3}
 --- !u!1 &651552427
 GameObject:
   m_ObjectHideFlags: 0

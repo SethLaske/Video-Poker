@@ -20,7 +20,8 @@ namespace VideoPoker
         }
 
         public float ChangeBet(float change) {
-            if (GameManager.Instance.isGameActive) { 
+            if (GameManager.Instance.isGameActive) {
+                GameManager.Instance.audioManager.PlaySound(GameManager.Instance.audioManager.buttonReject);
                 return betSize;
             }
 
@@ -28,6 +29,7 @@ namespace VideoPoker
 
             if (newBetSize > 0 && newBetSize <= GameManager.Instance.gameRules.maxBetSize) { 
                 betSize = newBetSize;
+                GameManager.Instance.audioManager.PlaySound(GameManager.Instance.audioManager.buttonReject);
             }
 
             return betSize;

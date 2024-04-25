@@ -11,13 +11,14 @@ public class AudioManager : MonoBehaviour
 
     private AudioSource referencedSource;
 
-    private int spawnAmount = 5;
+    private int spawnAmount = 8;
 
     [Header ("Common Sound Clips")]
     public AudioClip winSound;
     public AudioClip buttonPress;
     public AudioClip cardPress;
     public AudioClip cardDeal;
+    public AudioClip buttonReject;
 
     private void Awake()
     {
@@ -49,11 +50,10 @@ public class AudioManager : MonoBehaviour
 
     public void PlaySound(AudioClip clip)
     {
-        Debug.Log("Playing sound");
-
         referencedSource = GetSourceFromPool();
         referencedSource.clip = clip;
         referencedSource.Play();
+
         ReturnSourceToPool(referencedSource);
     }
 
@@ -70,4 +70,5 @@ public class AudioManager : MonoBehaviour
 
         return referencedSource;
     }
+
 }

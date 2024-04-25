@@ -66,12 +66,14 @@ namespace VideoPoker
         public void ToggleCard(int index)
         {
             if (!GameManager.Instance.isGameActive) {
+                GameManager.Instance.audioManager.PlaySound(GameManager.Instance.audioManager.buttonReject);
                 return;
             }
 
             if (index >= playerCards.Length || index < 0)
             {
                 Debug.LogError("Toggling out of bounds: " + index);
+                GameManager.Instance.audioManager.PlaySound(GameManager.Instance.audioManager.buttonReject);
                 return;
             }
 
@@ -112,7 +114,7 @@ namespace VideoPoker
             cardUI.SetCardImage(card.sprite);
             cardUI.SetHold(false);
 
-            GameManager.Instance.audioManager.PlaySound(GameManager.Instance.audioManager.cardDeal);
+            //GameManager.Instance.audioManager.PlaySound(GameManager.Instance.audioManager.cardDeal);
         }
 
         public void ToggleCard()
