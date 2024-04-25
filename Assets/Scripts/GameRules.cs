@@ -27,8 +27,33 @@ namespace VideoPoker
     public class Hand
     {
         public string name;
-        public int payout;
+        public int payoutMultiplier;
         public string winningMessage;
-        public UnityEvent winningEffect;
+
+        [SerializeField] private List<PayoutThreshold> customPayouts = new List<PayoutThreshold>();
+
+        public float GetPayoutAmount()
+        {
+            float betAmount = GameManager.Instance.playerBalanceManager.GetBet();
+            if (customPayouts.Count > 0) {
+
+                foreach (var payout in customPayouts)
+                {
+                    if (betAmount >= payout.lowerLimit) { 
+                        return payout.newMultiplier * betAmount;
+                    }
+                }
+            }
+
+            return payoutMultiplier * betAmount;
+        }
+
+
+    }
+
+    [Serializable]
+    public struct PayoutThreshold {
+        [Tooltip ("In dollars")] public float lowerLimit;
+        public float newMultiplier;
     }
 }

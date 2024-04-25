@@ -8,6 +8,8 @@ namespace VideoPoker
     {
         [SerializeField] private GameObject payTable;
         [SerializeField] private HandDisplayObject handDisplayObjectPrefab;
+
+        private List<HandDisplayObject> displayObjects = new List<HandDisplayObject>();
         protected override void Initialize()
         {
             base.Initialize();
@@ -28,6 +30,14 @@ namespace VideoPoker
             {
                 newObject = Instantiate(handDisplayObjectPrefab, payTable.transform);
                 newObject.PopulateUI(hand);
+                displayObjects.Add( newObject );
+            }
+        }
+
+        public void UpdatePayoutTable() { 
+            foreach (HandDisplayObject hand in displayObjects)
+            {
+                hand.UpdateUI();
             }
         }
     }

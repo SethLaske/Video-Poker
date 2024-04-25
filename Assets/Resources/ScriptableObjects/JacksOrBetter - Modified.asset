@@ -10,20 +10,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5fad3d77804628458e61658b98d7f5f, type: 3}
-  m_Name: JacksOrBetter
+  m_Name: JacksOrBetter - Modified
   m_EditorClassIdentifier: 
-  maxBetSize: 1
-  betIncrement: 0.25
+  maxBetSize: 5
+  betIncrement: 1
   royalFlush:
     name: Royal Flush
-    payoutMultiplier: 800
+    payoutMultiplier: 250
     winningMessage: Congratulations on your Royal Flush!
-    customPayouts: []
+    customPayouts:
+    - lowerLimit: 5
+      newMultiplier: 800
   straightFlush:
     name: Straight Flush
-    payoutMultiplier: 50
+    payoutMultiplier: 30
     winningMessage: Excellent! Straight Flush
-    customPayouts: []
+    customPayouts:
+    - lowerLimit: 5
+      newMultiplier: 50
+    - lowerLimit: 4
+      newMultiplier: 45
+    - lowerLimit: 3
+      newMultiplier: 40
+    - lowerLimit: 2
+      newMultiplier: 35
   quads:
     name: Four of a Kind
     payoutMultiplier: 25

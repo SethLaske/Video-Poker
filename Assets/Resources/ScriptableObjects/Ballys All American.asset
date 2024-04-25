@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5fad3d77804628458e61658b98d7f5f, type: 3}
-  m_Name: JacksOrBetter
+  m_Name: Ballys All American
   m_EditorClassIdentifier: 
   maxBetSize: 1
   betIncrement: 0.25
@@ -26,22 +26,22 @@ MonoBehaviour:
     customPayouts: []
   quads:
     name: Four of a Kind
-    payoutMultiplier: 25
+    payoutMultiplier: 50
     winningMessage: Amazing, Four of a Kind!
     customPayouts: []
   fullHouse:
     name: Full House
-    payoutMultiplier: 9
+    payoutMultiplier: 8
     winningMessage: Great job! Full House!
     customPayouts: []
   flush:
     name: Flush
-    payoutMultiplier: 6
+    payoutMultiplier: 8
     winningMessage: Flush!
     customPayouts: []
   straight:
     name: Straight
-    payoutMultiplier: 4
+    payoutMultiplier: 8
     winningMessage: Straight!
     customPayouts: []
   trips:
@@ -51,7 +51,7 @@ MonoBehaviour:
     customPayouts: []
   twoPair:
     name: Two Pair
-    payoutMultiplier: 2
+    payoutMultiplier: 1
     winningMessage: Two Pair!
     customPayouts: []
   jackOrBetter:

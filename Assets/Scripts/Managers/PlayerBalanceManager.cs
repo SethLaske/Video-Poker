@@ -38,7 +38,7 @@ namespace VideoPoker
 
             playerBalance += change;
 
-            GameManager.Instance.uiManager.UpdatePlayerBalance();
+            GameManager.Instance.uiManager.UpdatePlayerBalanceText();
             return playerBalance;
         }
 

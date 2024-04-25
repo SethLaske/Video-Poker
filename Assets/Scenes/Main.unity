@@ -8372,27 +8372,27 @@ PrefabInstance:
     - target: {fileID: 4237939210517232081, guid: f661b0766e85b62479ef93ad55b15113,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4237939210517232081, guid: f661b0766e85b62479ef93ad55b15113,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4237939210517232081, guid: f661b0766e85b62479ef93ad55b15113,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 115
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4237939210517232081, guid: f661b0766e85b62479ef93ad55b15113,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 225
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4237939210517232081, guid: f661b0766e85b62479ef93ad55b15113,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -57.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4782400484686447131, guid: f661b0766e85b62479ef93ad55b15113,
         type: 3}
@@ -8422,7 +8422,7 @@ PrefabInstance:
     - target: {fileID: 6834962488414553477, guid: f661b0766e85b62479ef93ad55b15113,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6834962488414553477, guid: f661b0766e85b62479ef93ad55b15113,
         type: 3}
@@ -8432,17 +8432,17 @@ PrefabInstance:
     - target: {fileID: 6834962488414553477, guid: f661b0766e85b62479ef93ad55b15113,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6834962488414553477, guid: f661b0766e85b62479ef93ad55b15113,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 700
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6834962488414553477, guid: f661b0766e85b62479ef93ad55b15113,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 115
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6834962488414553477, guid: f661b0766e85b62479ef93ad55b15113,
         type: 3}
@@ -8482,12 +8482,12 @@ PrefabInstance:
     - target: {fileID: 6834962488414553477, guid: f661b0766e85b62479ef93ad55b15113,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 360
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6834962488414553477, guid: f661b0766e85b62479ef93ad55b15113,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6834962488414553477, guid: f661b0766e85b62479ef93ad55b15113,
         type: 3}
@@ -8522,32 +8522,32 @@ PrefabInstance:
     - target: {fileID: 8669969293496360153, guid: f661b0766e85b62479ef93ad55b15113,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8669969293496360153, guid: f661b0766e85b62479ef93ad55b15113,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8669969293496360153, guid: f661b0766e85b62479ef93ad55b15113,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 115
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8669969293496360153, guid: f661b0766e85b62479ef93ad55b15113,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 575
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8669969293496360153, guid: f661b0766e85b62479ef93ad55b15113,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -57.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9146378241227300453, guid: f661b0766e85b62479ef93ad55b15113,
         type: 3}
       propertyPath: m_Text
-      value: Multiplier
+      value: Payout
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f661b0766e85b62479ef93ad55b15113, type: 3}
@@ -8836,7 +8836,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2065129354
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8874,11 +8874,11 @@ MonoBehaviour:
     m_Left: 10
     m_Right: 0
     m_Top: 10
-    m_Bottom: 0
+    m_Bottom: 10
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 1
-  m_CellSize: {x: 700, y: 115}
+  m_CellSize: {x: 800, y: 115}
   m_Spacing: {x: 10, y: 10}
   m_Constraint: 2
   m_ConstraintCount: 5

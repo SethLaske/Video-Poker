@@ -35,6 +35,9 @@ namespace VideoPoker
         public void ToggleCurrency()
         {
             isCredits = !isCredits;
+
+            GameManager.Instance.uiManager.UpdateCurrencyFields();
+            GameManager.Instance.helpManager.UpdatePayoutTable();
         }
     }
 }

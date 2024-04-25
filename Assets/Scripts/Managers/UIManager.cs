@@ -50,6 +50,9 @@ namespace VideoPoker
 		protected override void Initialize()
 		{
             base.Initialize();
+			
+			increaseBetText = increaseBetButton.GetComponentInChildren<Text>();
+            decreaseBetText = decreaseBetButton.GetComponentInChildren<Text>();
 
             betButton.onClick.AddListener(OnBetButtonPressed);
 			drawButton.onClick.AddListener(OnDrawButtonPressed);
@@ -66,12 +69,7 @@ namespace VideoPoker
 
             winningText.text = introGameMessage;
 
-            UpdatePlayerBalance();
-            UpdatePlayerBet();
-
-			increaseBetText = increaseBetButton.GetComponentInChildren<Text>();
-            decreaseBetText = decreaseBetButton.GetComponentInChildren<Text>();
-			UpdateBetIncrementTexts();
+			UpdateCurrencyFields();
         }
 
         //-//////////////////////////////////////////////////////////////////////
@@ -81,21 +79,26 @@ namespace VideoPoker
 
         public void DisplayResults(Hand hand) {
 			winningText.text = hand.winningMessage;
-			hand.winningEffect?.Invoke();
 		}
 
-		public void UpdatePlayerBalance() {
+		public void UpdateCurrencyFields() {
+			UpdatePlayerBalanceText();
+			UpdatePlayerBetText();
+			UpdateBetIncrementText();
+		}
+
+		public void UpdatePlayerBalanceText() {
 			float balance = GameManager.Instance.playerBalanceManager.GetBalance();
 			currentBalanceText.text = "Balance: " + GameManager.Instance.currencyManager.GetCurrencyString(balance);
 		}
 
-        public void UpdatePlayerBet()
+        public void UpdatePlayerBetText()
         {
             float bet = GameManager.Instance.playerBalanceManager.GetBet();
             betText.text = "Bet: " + GameManager.Instance.currencyManager.GetCurrencyString(bet);
         }
 
-        public void UpdateBetIncrementTexts()
+        public void UpdateBetIncrementText()
         {
 			float increment = GameManager.Instance.gameRules.betIncrement;
             increaseBetText.text = "+ " + GameManager.Instance.currencyManager.GetCurrencyString(increment);
@@ -146,7 +149,9 @@ namespace VideoPoker
 
 			GameManager.Instance.playerBalanceManager.ChangeBet(1 * GameManager.Instance.gameRules.betIncrement);
 
-			UpdatePlayerBet();
+			UpdatePlayerBetText();
+
+            GameManager.Instance.helpManager.UpdatePayoutTable();
         }
 
 		private void OnDecreaseBetButtonPressed() {
@@ -154,15 +159,13 @@ namespace VideoPoker
 
             GameManager.Instance.playerBalanceManager.ChangeBet(-1 * GameManager.Instance.gameRules.betIncrement);
 
-            UpdatePlayerBet();
+            UpdatePlayerBetText();
+
+            GameManager.Instance.helpManager.UpdatePayoutTable();
         }
 
 		private void OnToggleCurencyButtonPressed() {
 			GameManager.Instance.currencyManager.ToggleCurrency();
-
-			UpdatePlayerBalance();
-			UpdatePlayerBet();
-			UpdateBetIncrementTexts();
 		}
 
 		//-//////////////////////////////////////////////////////////////////////

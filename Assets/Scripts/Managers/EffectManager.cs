@@ -50,7 +50,7 @@ namespace VideoPoker
             string displayMessage = "+ " + GameManager.Instance.currencyManager.GetCurrencyString(playerGain);
             AddTextEffectToQueue(new TextEffect(2, displayMessage));
 
-            if (highestHand.payout > 3)
+            if (highestHand.payoutMultiplier > 3)
             {
                 PlayParticles();
             }

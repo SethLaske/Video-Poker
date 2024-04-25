@@ -108,11 +108,11 @@ namespace VideoPoker
 
             uiManager.DisplayResults(highestHand);
 
-			float playerGain = playerBalanceManager.GetBet() * highestHand.payout;
+			float playerGain = highestHand.GetPayoutAmount();
 
             playerBalanceManager.ChangeBalance(playerGain);
 
-			if (highestHand.payout > 0) { 
+			if (highestHand.payoutMultiplier > 0) { 
 				effectManager.EndGameEffects(highestHand, playerGain);
 				audioManager.PlaySound(audioManager.winSound);
 			}
