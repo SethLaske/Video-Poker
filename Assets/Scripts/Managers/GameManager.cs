@@ -90,6 +90,10 @@ namespace VideoPoker
 			return true;
 		}
 
+		public void FirstHandDone() {
+			uiManager.HoldPhaseEnabled();
+		}
+
 		public bool DrawNewCards() {
             playerHandManager.DrawNewCards();
 
@@ -112,6 +116,8 @@ namespace VideoPoker
 			}
 
 			isGameActive = false;
+
+			uiManager.PreGamePhase();
 		}
 	}
 }

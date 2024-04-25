@@ -14,6 +14,8 @@ namespace VideoPoker
         [SerializeField] private CardUI[] cardUIs = new CardUI[5];
         [SerializeField] private PlayerCard[] playerCards;
 
+        [SerializeField] private float timeToFlipCard;
+
         protected override void Initialize()
         {
             base.Initialize();
@@ -45,8 +47,23 @@ namespace VideoPoker
         {
             for (int i = 0; i < playerCards.Length; i++)
             {
-                SetCard(i, GameManager.Instance.deckManager.DrawCard());
+                playerCards[i].ClearCard();
+                //SetCard(i, GameManager.Instance.deckManager.DrawCard());
             }
+
+            StartCoroutine(DrawFirstHand());
+        }
+
+        IEnumerator DrawFirstHand() {
+
+            yield return new WaitForSeconds(timeToFlipCard);
+            for (int i = 0; i < playerCards.Length; i++)
+            {
+                SetCard(i, GameManager.Instance.deckManager.DrawCard());
+                yield return new WaitForSeconds(timeToFlipCard);
+            }
+
+            GameManager.Instance.FirstHandDone();
         }
 
         public void DrawNewCards()
@@ -55,7 +72,24 @@ namespace VideoPoker
             {
                 if (playerCards[i].onHold == false)
                 {
+                    playerCards[i].ClearCard();
+                    //SetCard(i, GameManager.Instance.deckManager.DrawCard());
+                }
+            }
+
+            StartCoroutine(DrawSecondHand());
+        }
+
+        IEnumerator DrawSecondHand()
+        {
+
+            yield return new WaitForSeconds(timeToFlipCard);
+            for (int i = 0; i < playerCards.Length; i++)
+            {
+                if (playerCards[i].onHold == false)
+                {
                     SetCard(i, GameManager.Instance.deckManager.DrawCard());
+                    yield return new WaitForSeconds(timeToFlipCard);
                 }
             }
 
@@ -113,6 +147,9 @@ namespace VideoPoker
             this.cardUI = cardUI;
         }
 
+        public void ClearCard() {
+            cardUI.SetCardImage(GameManager.Instance.deckManager.cardBackSprite);
+        }
         public void SetCard(Card newCard)
         {
             card = newCard;
@@ -121,7 +158,7 @@ namespace VideoPoker
             cardUI.SetCardImage(card.sprite);
             cardUI.SetHold(false);
 
-            //GameManager.Instance.audioManager.PlaySound(GameManager.Instance.audioManager.cardDeal);
+            GameManager.Instance.audioManager.PlaySound(GameManager.Instance.audioManager.cardDeal);
         }
 
         public void ToggleCard()

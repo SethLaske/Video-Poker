@@ -15,6 +15,7 @@ namespace VideoPoker
         [SerializeField] private List<Sprite> cardSprites; 
 
         [SerializeField] private int normalCards = 52;
+        [SerializeField] public Sprite cardBackSprite;
 
         private List<Card> availableCards = new List<Card>();
         private List<Card> drawnCards = new List<Card>();
@@ -72,7 +73,7 @@ namespace VideoPoker
             Card card = new Card();
             card.suit = 0;
             card.value = 0;
-            card.sprite = cardSprites[0];
+            card.sprite = cardBackSprite;
             return card;
         }
     }

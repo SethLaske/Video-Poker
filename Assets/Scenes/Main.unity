@@ -461,6 +461,7 @@ MonoBehaviour:
   - {fileID: 1487786927}
   - {fileID: 1596305074}
   playerCards: []
+  timeToFlipCard: 0.15
 --- !u!1 &269073556
 GameObject:
   m_ObjectHideFlags: 0
@@ -775,6 +776,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 6557108c40b4d424281eac09edacb02f, type: 3}
   - {fileID: 21300000, guid: ce66bb28ac75749728de3ec453b94341, type: 3}
   normalCards: 52
+  cardBackSprite: {fileID: 21300000, guid: 82dfbd04749324e84b8e25762e674b63, type: 3}
 --- !u!1 &535339895
 GameObject:
   m_ObjectHideFlags: 0

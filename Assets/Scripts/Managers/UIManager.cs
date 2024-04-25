@@ -97,11 +97,11 @@ namespace VideoPoker
 
 
 				betButton.interactable = false;
-				drawButton.interactable = true;
-				increaseBetButton.interactable = false;
-				decreaseBetButton.interactable = false;
 
-				GameManager.Instance.audioManager.PlaySound(GameManager.Instance.audioManager.buttonPress);
+                increaseBetButton.interactable = false;
+                decreaseBetButton.interactable = false;
+
+                GameManager.Instance.audioManager.PlaySound(GameManager.Instance.audioManager.buttonPress);
 			}
 			else { 
 				winningText.text = insufficientFundsMessage;
@@ -111,10 +111,7 @@ namespace VideoPoker
 
 		private void OnDrawButtonPressed() {
 			if (GameManager.Instance.DrawNewCards()) { 
-				betButton.interactable = true;
 				drawButton.interactable = false;
-				increaseBetButton.interactable = true;
-				decreaseBetButton.interactable = true;
 
 				GameManager.Instance.audioManager.PlaySound(GameManager.Instance.audioManager.buttonPress);
 			}
@@ -138,5 +135,20 @@ namespace VideoPoker
 
             betText.text = "Bet: $" + GameManager.Instance.playerBalanceManager.ChangeBet(-1 * GameManager.Instance.gameRules.betIncrement).ToString("F2");
         }
-	}
+
+		//-//////////////////////////////////////////////////////////////////////
+		///
+		/// Sequencing functions
+		/// 
+
+		public void PreGamePhase() {
+            betButton.interactable = true;
+            increaseBetButton.interactable = true;
+            decreaseBetButton.interactable = true;
+        }
+		public void HoldPhaseEnabled() {
+            drawButton.interactable = true;
+            
+        }
+    }
 }
