@@ -4,12 +4,14 @@ using UnityEngine;
 
 namespace VideoPoker
 {
-    public class HelpManager : MonoBehaviour
+    public class HelpManager : Manager
     {
         [SerializeField] private GameObject payTable;
         [SerializeField] private HandDisplayObject handDisplayObjectPrefab;
-        void Start()
+        protected override void Initialize()
         {
+            base.Initialize();
+
             FillPayoutTable();
             payTable.gameObject.SetActive(false);
         }

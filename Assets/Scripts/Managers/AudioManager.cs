@@ -11,7 +11,7 @@ namespace VideoPoker
     /// Formerly used in several of my projects, this was simplified for this project
     /// 
 
-    public class AudioManager : MonoBehaviour
+    public class AudioManager : Manager
     {
         private Queue<AudioSource> availableSources = new Queue<AudioSource>();
 
@@ -28,8 +28,9 @@ namespace VideoPoker
         public AudioClip cardDeal;
         public AudioClip buttonReject;
 
-        private void Awake()
+        protected override void Initialize()
         {
+            base.Initialize();
 
             if (availableSources.Count <= 0)
             {

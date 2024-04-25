@@ -9,13 +9,14 @@ namespace VideoPoker
     ///
     /// Manages the players actions and cards
     /// 
-    public class PlayerHandManager : MonoBehaviour
+    public class PlayerHandManager : Manager
     {
         [SerializeField] private CardUI[] cardUIs = new CardUI[5];
         [SerializeField] private PlayerCard[] playerCards;
 
-        private void Start()
+        protected override void Initialize()
         {
+            base.Initialize();
 
             playerCards = new PlayerCard[cardUIs.Length];
             for (int i = 0; i < cardUIs.Length; i++)

@@ -6,7 +6,7 @@ namespace VideoPoker
 	/// 
 	/// The main game manager
 	/// 
-	public class GameManager : MonoBehaviour
+	public class GameManager : Manager
 	{
 		public static GameManager Instance;
 
@@ -37,16 +37,34 @@ namespace VideoPoker
 
 		//-//////////////////////////////////////////////////////////////////////
 		/// 
-		void Start()
+		protected override void Initialize()
 		{
+			base.Initialize();
+
 			isGameActive = false;
 		}
-		
-		//-//////////////////////////////////////////////////////////////////////
-		/// 
-		void Update()
+
+        private void Update()
+        {
+			Tick(Time.deltaTime);
+        }
+
+        //-//////////////////////////////////////////////////////////////////////
+        /// 
+        public override void Tick(float delta)
 		{
-			effectManager.Tick(Time.deltaTime);
+			base.Tick(delta);
+
+            audioManager.Tick(Time.deltaTime);
+            playerBalanceManager.Tick(Time.deltaTime);
+            deckManager.Tick(Time.deltaTime);
+            effectManager.Tick(Time.deltaTime);
+            helpManager.Tick(Time.deltaTime);
+            effectManager.Tick(Time.deltaTime);
+
+            playerHandManager.Tick(Time.deltaTime);		//Handled after audioManager
+
+            uiManager.Tick(Time.deltaTime);		//Handled after playerBalanceManager
 		}
 
         //-//////////////////////////////////////////////////////////////////////

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace VideoPoker
 {
-    public class EffectManager : MonoBehaviour
+    public class EffectManager : Manager
     {
         [SerializeField] private ParticleSystem particles;
 
@@ -15,12 +15,16 @@ namespace VideoPoker
 
         private TextEffect currentEffect;
 
-        private void Start()
+        protected override void Initialize()
         {
+            base.Initialize();
+
             displayText.gameObject.SetActive(false);
         }
-        public void Tick(float delta)
+        public override void Tick(float delta)
         {
+            base.Tick(delta);
+
             if (currentEffect == null && textEffects.Count <= 0)
             {
                 return;

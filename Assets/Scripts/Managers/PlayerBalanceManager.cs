@@ -9,14 +9,16 @@ namespace VideoPoker
     ///
     /// Manages the players balance and bet sizes
     /// 
-    public class PlayerBalanceManager : MonoBehaviour
+    public class PlayerBalanceManager : Manager
     {
         [SerializeField] private float playerBalance = 20;
 
         [SerializeField] private float betSize = .25f;
 
-        private void Awake()
+        protected override void Initialize()
         {
+            base.Initialize();
+
             betSize = GameManager.Instance.gameRules.betIncrement;
         }
 

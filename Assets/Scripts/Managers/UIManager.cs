@@ -7,7 +7,7 @@ namespace VideoPoker
 	///
 	/// Manages UI including button events and updates to text fields
 	/// 
-	public class UIManager : MonoBehaviour
+	public class UIManager : Manager
 	{
 		[SerializeField]
 		private Text currentBalanceText = null;
@@ -44,9 +44,11 @@ namespace VideoPoker
 
 		//-//////////////////////////////////////////////////////////////////////
 		/// 
-		void Start()
+		protected override void Initialize()
 		{
-			betButton.onClick.AddListener(OnBetButtonPressed);
+            base.Initialize();
+
+            betButton.onClick.AddListener(OnBetButtonPressed);
 			drawButton.onClick.AddListener(OnDrawButtonPressed);
 			helpButton.onClick.AddListener(OnHelpButtonPressed);
 			increaseBetButton.onClick.AddListener(OnIncreaseBetButtonPressed);
@@ -128,13 +130,13 @@ namespace VideoPoker
 		private void OnIncreaseBetButtonPressed() {
             GameManager.Instance.audioManager.PlaySound(GameManager.Instance.audioManager.buttonPress);
 
-			betText.text = "Bet: $" + GameManager.Instance.playerBalanceManager.ChangeBet(GameManager.Instance.gameRules.betIncrement);
+			betText.text = "Bet: $" + GameManager.Instance.playerBalanceManager.ChangeBet(GameManager.Instance.gameRules.betIncrement).ToString("F2");
         }
 
 		private void OnDecreaseBetButtonPressed() {
             GameManager.Instance.audioManager.PlaySound(GameManager.Instance.audioManager.buttonPress);
 
-            betText.text = "Bet: $" + GameManager.Instance.playerBalanceManager.ChangeBet(-1 * GameManager.Instance.gameRules.betIncrement);
+            betText.text = "Bet: $" + GameManager.Instance.playerBalanceManager.ChangeBet(-1 * GameManager.Instance.gameRules.betIncrement).ToString("F2");
         }
 	}
 }

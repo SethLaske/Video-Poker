@@ -9,7 +9,7 @@ namespace VideoPoker
     ///
     /// Manages shuffling and drawing cards from the deck
     /// 
-    public class DeckManager : MonoBehaviour
+    public class DeckManager : Manager
     {
         [Tooltip ("Sprites should be sorted by Suit then ordered Ace to King")]
         [SerializeField] private List<Sprite> cardSprites; 
@@ -19,8 +19,10 @@ namespace VideoPoker
         private List<Card> availableCards = new List<Card>();
         private List<Card> drawnCards = new List<Card>();
 
-        private void Start()
+        protected override void Initialize()
         {
+            base.Initialize();
+
             availableCards.Clear();
             drawnCards.Clear();
 
