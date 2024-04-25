@@ -16,8 +16,8 @@ namespace VideoPoker
 		[SerializeField] public HelpManager helpManager;
 		[SerializeField] public EffectManager effectManager;
 		[SerializeField] public AudioManager audioManager;
+		[SerializeField] public PlayerHandManager playerHandManager;
 
-		[SerializeField] public PlayerHand playerHand;
 
 		public GameRules gameRules;
 
@@ -49,7 +49,11 @@ namespace VideoPoker
 			effectManager.Tick(Time.deltaTime);
 		}
 
-		public bool StartGame() {
+        //-//////////////////////////////////////////////////////////////////////
+        ///
+        /// Functions to control the main gameflow
+        /// 
+        public bool StartGame() {
 			isGameActive=true;
 
 			float newBalance = playerBalanceManager.ChangeBalance(-1 * playerBalanceManager.GetBet());
@@ -62,16 +66,21 @@ namespace VideoPoker
             }
 
             deckManager.ShuffleDeck();
-			playerHand.ResetHand();
-			playerHand.NewHand();
+			playerHandManager.ResetHand();
+			playerHandManager.NewHand();
 
 			return true;
 		}
 
-		public void EndGame() { 
-			isGameActive = false;
+		public bool DrawNewCards() {
+            playerHandManager.DrawNewCards();
 
-            Hand highestHand = gameRules.GetHandRank(playerHand.GetCurrentCardArray());
+			return true;
+        }
+
+		public void EndGame() { 
+
+            Hand highestHand = gameRules.GetHandRank(playerHandManager.GetCurrentCardArray());
 
             uiManager.DisplayResults(highestHand);
 
@@ -83,6 +92,8 @@ namespace VideoPoker
 				effectManager.EndGameEffects(highestHand, playerGain);
 				audioManager.PlaySound(audioManager.winSound);
 			}
+
+			isGameActive = false;
 		}
 	}
 }

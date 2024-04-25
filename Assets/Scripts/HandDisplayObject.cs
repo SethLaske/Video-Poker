@@ -3,7 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace VideoPoker{ 
+namespace VideoPoker
+{
+    //-//////////////////////////////////////////////////////////////////////
+    ///
+    /// Used for creating each entry in the payout table
+    /// 
     public class HandDisplayObject : MonoBehaviour
     {
         [SerializeField] private Text handName;

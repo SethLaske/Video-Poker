@@ -5,7 +5,11 @@ using UnityEngine;
 
 namespace VideoPoker
 {
-    public class PlayerHand : MonoBehaviour
+    //-//////////////////////////////////////////////////////////////////////
+    ///
+    /// Manages the players actions and cards
+    /// 
+    public class PlayerHandManager : MonoBehaviour
     {
         [SerializeField] private CardUI[] cardUIs = new CardUI[5];
         [SerializeField] private PlayerCard[] playerCards;
@@ -55,15 +59,14 @@ namespace VideoPoker
             }
 
             GameManager.Instance.EndGame();
-            //Debug.Log("The winning multiplier is: " + winningMultiplier);
         }
 
-        public void SetCard(int index, Card newCard)
+        private void SetCard(int index, Card newCard)
         {
             playerCards[index].SetCard(newCard);
         }
 
-        public void ToggleCard(int index)
+        private void ToggleCard(int index)
         {
             if (!GameManager.Instance.isGameActive) {
                 GameManager.Instance.audioManager.PlaySound(GameManager.Instance.audioManager.buttonReject);
@@ -92,7 +95,10 @@ namespace VideoPoker
         }
     }
 
-
+    //-//////////////////////////////////////////////////////////////////////
+    ///
+    /// Track all of each of the players 5 card slots
+    /// 
     [Serializable]
     public class PlayerCard
     {

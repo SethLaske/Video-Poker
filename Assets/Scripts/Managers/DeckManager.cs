@@ -5,6 +5,10 @@ using UnityEngine;
 
 namespace VideoPoker
 {
+    //-//////////////////////////////////////////////////////////////////////
+    ///
+    /// Manages shuffling and drawing cards from the deck
+    /// 
     public class DeckManager : MonoBehaviour
     {
         [Tooltip ("Sprites should be sorted by Suit then ordered Ace to King")]

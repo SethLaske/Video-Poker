@@ -3,72 +3,82 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
 
-public class AudioManager : MonoBehaviour
+namespace VideoPoker
 {
-    private Queue<AudioSource> availableSources = new Queue<AudioSource>();
+    //-//////////////////////////////////////////////////////////////////////
+    ///
+    /// Manages audio for the game, specifically managing SFX
+    /// Formerly used in several of my projects, this was simplified for this project
+    /// 
 
-    public AudioSource sFXPrefab;
-
-    private AudioSource referencedSource;
-
-    private int spawnAmount = 8;
-
-    [Header ("Common Sound Clips")]
-    public AudioClip winSound;
-    public AudioClip buttonPress;
-    public AudioClip cardPress;
-    public AudioClip cardDeal;
-    public AudioClip buttonReject;
-
-    private void Awake()
+    public class AudioManager : MonoBehaviour
     {
+        private Queue<AudioSource> availableSources = new Queue<AudioSource>();
 
-        if (availableSources.Count <= 0)
-        {
-            SpawnObjects();
-        }
-    }
+        public AudioSource sFXPrefab;
 
-    private void SpawnObjects()
-    {
-        if (sFXPrefab == null)
-        {
-            return;
-        }
-        for (int i = 0; i < spawnAmount; i++)
+        private AudioSource referencedSource;
+
+        private int spawnAmount = 8;
+
+        [Header("Common Sound Clips")]
+        public AudioClip winSound;
+        public AudioClip buttonPress;
+        public AudioClip cardPress;
+        public AudioClip cardDeal;
+        public AudioClip buttonReject;
+
+        private void Awake()
         {
 
-            ReturnSourceToPool(Instantiate(sFXPrefab, transform));
+            if (availableSources.Count <= 0)
+            {
+                SpawnObjects();
+            }
         }
-    }
 
-    private void ReturnSourceToPool(AudioSource source)
-    {
-        availableSources.Enqueue(source);
-        source.transform.parent = transform;
-    }
-
-    public void PlaySound(AudioClip clip)
-    {
-        referencedSource = GetSourceFromPool();
-        referencedSource.clip = clip;
-        referencedSource.Play();
-
-        ReturnSourceToPool(referencedSource);
-    }
-
-    public AudioSource GetSourceFromPool()
-    {
-        if (availableSources.Count <= 0)
+        private void SpawnObjects()
         {
-            SpawnObjects();
+            if (sFXPrefab == null)
+            {
+                return;
+            }
+            for (int i = 0; i < spawnAmount; i++)
+            {
+
+                ReturnSourceToPool(Instantiate(sFXPrefab, transform));
+            }
         }
 
-        referencedSource = availableSources.Dequeue();
 
-        referencedSource.gameObject.SetActive(true);
+        public void PlaySound(AudioClip clip)
+        {
+            referencedSource = GetSourceFromPool();
+            referencedSource.clip = clip;
+            referencedSource.Play();
 
-        return referencedSource;
+            ReturnSourceToPool(referencedSource);
+        }
+        private void ReturnSourceToPool(AudioSource source)
+        {
+            availableSources.Enqueue(source);
+            source.transform.parent = transform;
+        }
+
+        private AudioSource GetSourceFromPool()
+        {
+            if (availableSources.Count <= 0)
+            {
+                SpawnObjects();
+            }
+
+            referencedSource = availableSources.Dequeue();
+
+            referencedSource.gameObject.SetActive(true);
+
+            return referencedSource;
+        }
+
     }
 
 }

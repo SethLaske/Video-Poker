@@ -6,6 +6,11 @@ using UnityEngine;
 
 namespace VideoPoker
 {
+    //-//////////////////////////////////////////////////////////////////////
+    ///
+    /// Differentiates all hands found in Jacks or Better
+    /// 
+
     [CreateAssetMenu(fileName = "JacksOrBetter", menuName = "GameRules/JacksOrBetter")]
     public class JacksOrBetter : GameRules
     {
@@ -110,7 +115,8 @@ namespace VideoPoker
 
             return hands;
         }
-        //ChatGPT
+
+        //ChatGPT assisted with this sorting syntax
         private Card[] SortCardsByValue(Card[] unsortedCards)
         {
             return unsortedCards.OrderBy(card => card.value).ToArray();
@@ -135,9 +141,9 @@ namespace VideoPoker
             int firstValue = cards[0].value;
 
             if (firstValue == 0 && cards[1].value == 9)
-            {       //Aces can only be in a straight Ace-5 or 10-Ace. 
+            {                                                   //Aces can only be in a straight Ace-5 or 10-Ace. 
                 firstValue = 8;                                 //If the first value is an ace and the second a 10
-            }                                                   //then the Ace will be temporarily counted as a 9 to check for a regular straight
+            }                                                   //then the Ace will be temporarily counted as a 9 to check for a straight
 
             for (int i = 1; i < cards.Length; i++)
             {

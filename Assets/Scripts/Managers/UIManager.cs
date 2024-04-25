@@ -18,6 +18,7 @@ namespace VideoPoker
         [SerializeField]
         private Text betText = null;
 
+
         [SerializeField]
 		private Button betButton = null;
 
@@ -29,19 +30,17 @@ namespace VideoPoker
 
 		[SerializeField]
 		private Button increaseBetButton = null;
+		private Text increaseBetText;
 
 		[SerializeField]
 		private Button decreaseBetButton = null;
+		private Text decreaseBetText;
 
         [SerializeField] private string introGameMessage;
         [SerializeField] private string defaultGameMessage;
 		[SerializeField] private string insufficientFundsMessage;
-		[SerializeField] private float betIncrements;
-        //-//////////////////////////////////////////////////////////////////////
-        /// 
-        void Awake()
-		{
-		}
+		
+        
 
 		//-//////////////////////////////////////////////////////////////////////
 		/// 
@@ -59,12 +58,23 @@ namespace VideoPoker
 			increaseBetButton.interactable = true;
 			decreaseBetButton.interactable = true;
 
+			increaseBetText = increaseBetButton.GetComponentInChildren<Text>();
+			increaseBetText.text = "+ $" + GameManager.Instance.gameRules.betIncrement.ToString("F2");
+
+            decreaseBetText = decreaseBetButton.GetComponentInChildren<Text>();
+            decreaseBetText.text = "- $" + GameManager.Instance.gameRules.betIncrement.ToString("F2");
+
             winningText.text = introGameMessage;
             UpdatePlayerBalance(GameManager.Instance.playerBalanceManager.GetBalance());
-            betText.text = "Bet: $" + GameManager.Instance.playerBalanceManager.GetBet();
+            betText.text = "Bet: $" + GameManager.Instance.playerBalanceManager.GetBet().ToString("F2");
         }
 
-		public void DisplayResults(Hand hand) {
+        //-//////////////////////////////////////////////////////////////////////
+        ///
+        /// Updating UI text
+        /// 
+
+        public void DisplayResults(Hand hand) {
 			winningText.text = hand.winningMessage;
 			hand.winningEffect?.Invoke();
 		}
@@ -75,7 +85,7 @@ namespace VideoPoker
 
 		//-//////////////////////////////////////////////////////////////////////
 		///
-		/// Event that triggers when bet button is pressed
+		/// Event that triggers when buttons are pressed
 		/// 
 		private void OnBetButtonPressed()
 		{
@@ -97,15 +107,16 @@ namespace VideoPoker
 
         }
 
-		private void OnDrawButtonPressed() { 
-			GameManager.Instance.playerHand.DrawNewCards();
+		private void OnDrawButtonPressed() {
+			if (GameManager.Instance.DrawNewCards()) { 
+				betButton.interactable = true;
+				drawButton.interactable = false;
+				increaseBetButton.interactable = true;
+				decreaseBetButton.interactable = true;
 
-            betButton.interactable = true;
-            drawButton.interactable = false;
-            increaseBetButton.interactable = true;
-            decreaseBetButton.interactable = true;
+				GameManager.Instance.audioManager.PlaySound(GameManager.Instance.audioManager.buttonPress);
+			}
 
-            GameManager.Instance.audioManager.PlaySound(GameManager.Instance.audioManager.buttonPress);
         }
 
 		private void OnHelpButtonPressed() { 
@@ -117,13 +128,13 @@ namespace VideoPoker
 		private void OnIncreaseBetButtonPressed() {
             GameManager.Instance.audioManager.PlaySound(GameManager.Instance.audioManager.buttonPress);
 
-			betText.text = "Bet: $" + GameManager.Instance.playerBalanceManager.ChangeBet(betIncrements);
+			betText.text = "Bet: $" + GameManager.Instance.playerBalanceManager.ChangeBet(GameManager.Instance.gameRules.betIncrement);
         }
 
 		private void OnDecreaseBetButtonPressed() {
             GameManager.Instance.audioManager.PlaySound(GameManager.Instance.audioManager.buttonPress);
 
-            betText.text = "Bet: $" + GameManager.Instance.playerBalanceManager.ChangeBet(-1 * betIncrements);
+            betText.text = "Bet: $" + GameManager.Instance.playerBalanceManager.ChangeBet(-1 * GameManager.Instance.gameRules.betIncrement);
         }
 	}
 }

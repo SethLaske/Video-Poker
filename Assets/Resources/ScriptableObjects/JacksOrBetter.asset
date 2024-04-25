@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: JacksOrBetter
   m_EditorClassIdentifier: 
   maxBetSize: 1
+  betIncrement: 0.25
   royalFlush:
     name: Royal Flush
     payout: 800

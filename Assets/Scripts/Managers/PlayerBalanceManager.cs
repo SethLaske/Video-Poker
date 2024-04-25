@@ -5,11 +5,20 @@ using UnityEngine;
 
 namespace VideoPoker
 {
+    //-//////////////////////////////////////////////////////////////////////
+    ///
+    /// Manages the players balance and bet sizes
+    /// 
     public class PlayerBalanceManager : MonoBehaviour
     {
         [SerializeField] private float playerBalance = 20;
 
         [SerializeField] private float betSize = .25f;
+
+        private void Awake()
+        {
+            betSize = GameManager.Instance.gameRules.betIncrement;
+        }
 
         public float GetBalance() { 
             return playerBalance;
