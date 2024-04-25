@@ -1740,6 +1740,7 @@ MonoBehaviour:
   decreaseBetButton: {fileID: 1228666299}
   introGameMessage: Welcome to Jacks or Better!
   defaultGameMessage: Get Jacks or Better to Win
+  insufficientFundsMessage: Insufficient funds to start game
   betIncrements: 0.25
 --- !u!1 &922446989
 GameObject:

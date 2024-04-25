@@ -11,10 +11,22 @@ namespace VideoPoker
 
         [SerializeField] private float betSize = .25f;
 
+        public float GetBalance() { 
+            return playerBalance;
+        }
+
+        public float GetBet() { 
+            return betSize;
+        }
 
         public float ChangeBalance(float change)
         {
+            if (playerBalance + change < 0) {
+                return -1f;
+            }
+
             playerBalance += change;
+
             GameManager.Instance.uiManager.UpdatePlayerBalance(playerBalance);
             return playerBalance;
         }
@@ -27,8 +39,13 @@ namespace VideoPoker
 
             float newBetSize = betSize + change;
 
-            if (newBetSize > 0 && newBetSize <= GameManager.Instance.gameRules.maxBetSize) { 
+
+
+            if (newBetSize > 0 && newBetSize <= GameManager.Instance.gameRules.maxBetSize && (newBetSize <= playerBalance || change < 0))
+            {
                 betSize = newBetSize;
+            }
+            else { 
                 GameManager.Instance.audioManager.PlaySound(GameManager.Instance.audioManager.buttonReject);
             }
 

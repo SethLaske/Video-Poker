@@ -35,6 +35,7 @@ namespace VideoPoker
 
         [SerializeField] private string introGameMessage;
         [SerializeField] private string defaultGameMessage;
+		[SerializeField] private string insufficientFundsMessage;
 		[SerializeField] private float betIncrements;
         //-//////////////////////////////////////////////////////////////////////
         /// 
@@ -59,8 +60,8 @@ namespace VideoPoker
 			decreaseBetButton.interactable = true;
 
             winningText.text = introGameMessage;
-            UpdatePlayerBalance(GameManager.Instance.playerBalanceManager.ChangeBalance(0));
-            betText.text = "Bet: $" + GameManager.Instance.playerBalanceManager.ChangeBet(0);
+            UpdatePlayerBalance(GameManager.Instance.playerBalanceManager.GetBalance());
+            betText.text = "Bet: $" + GameManager.Instance.playerBalanceManager.GetBet();
         }
 
 		public void DisplayResults(Hand hand) {
@@ -78,15 +79,22 @@ namespace VideoPoker
 		/// 
 		private void OnBetButtonPressed()
 		{
-			winningText.text = defaultGameMessage;
-			GameManager.Instance.StartGame();
+			if (GameManager.Instance.StartGame())
+			{
+				winningText.text = defaultGameMessage;
 
-			betButton.interactable = false;
-			drawButton.interactable = true;
-            increaseBetButton.interactable = false;
-            decreaseBetButton.interactable = false;
 
-            GameManager.Instance.audioManager.PlaySound(GameManager.Instance.audioManager.buttonPress);
+				betButton.interactable = false;
+				drawButton.interactable = true;
+				increaseBetButton.interactable = false;
+				decreaseBetButton.interactable = false;
+
+				GameManager.Instance.audioManager.PlaySound(GameManager.Instance.audioManager.buttonPress);
+			}
+			else { 
+				winningText.text = insufficientFundsMessage;
+			}
+
         }
 
 		private void OnDrawButtonPressed() { 
@@ -107,15 +115,15 @@ namespace VideoPoker
         }
 
 		private void OnIncreaseBetButtonPressed() {
-			betText.text = "Bet: $" + GameManager.Instance.playerBalanceManager.ChangeBet(betIncrements);
-
             GameManager.Instance.audioManager.PlaySound(GameManager.Instance.audioManager.buttonPress);
+
+			betText.text = "Bet: $" + GameManager.Instance.playerBalanceManager.ChangeBet(betIncrements);
         }
 
 		private void OnDecreaseBetButtonPressed() {
-            betText.text = "Bet: $" + GameManager.Instance.playerBalanceManager.ChangeBet(-1 * betIncrements);
-
             GameManager.Instance.audioManager.PlaySound(GameManager.Instance.audioManager.buttonPress);
+
+            betText.text = "Bet: $" + GameManager.Instance.playerBalanceManager.ChangeBet(-1 * betIncrements);
         }
 	}
 }

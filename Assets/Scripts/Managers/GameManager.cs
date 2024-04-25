@@ -49,14 +49,23 @@ namespace VideoPoker
 			effectManager.Tick(Time.deltaTime);
 		}
 
-		public void StartGame() {
+		public bool StartGame() {
 			isGameActive=true;
 
-			playerBalanceManager.ChangeBalance(-1 * playerBalanceManager.ChangeBet(0));
+			float newBalance = playerBalanceManager.ChangeBalance(-1 * playerBalanceManager.GetBet());
 
-			deckManager.ShuffleDeck();
+            if (newBalance < 0)
+            {
+                audioManager.PlaySound(audioManager.buttonReject);
+				isGameActive = false;
+				return false;
+            }
+
+            deckManager.ShuffleDeck();
 			playerHand.ResetHand();
 			playerHand.NewHand();
+
+			return true;
 		}
 
 		public void EndGame() { 
@@ -66,7 +75,7 @@ namespace VideoPoker
 
             uiManager.DisplayResults(highestHand);
 
-			float playerGain = playerBalanceManager.ChangeBet(0) * highestHand.payout;
+			float playerGain = playerBalanceManager.GetBet() * highestHand.payout;
 
             playerBalanceManager.ChangeBalance(playerGain);
 
