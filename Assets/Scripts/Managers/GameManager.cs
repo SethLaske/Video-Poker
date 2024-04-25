@@ -17,6 +17,7 @@ namespace VideoPoker
 		[SerializeField] public EffectManager effectManager;
 		[SerializeField] public AudioManager audioManager;
 		[SerializeField] public PlayerHandManager playerHandManager;
+		[SerializeField] public CurrencyManager currencyManager;
 
 
 		public GameRules gameRules;
@@ -61,6 +62,7 @@ namespace VideoPoker
             effectManager.Tick(Time.deltaTime);
             helpManager.Tick(Time.deltaTime);
             effectManager.Tick(Time.deltaTime);
+			currencyManager.Tick(Time.deltaTime);
 
             playerHandManager.Tick(Time.deltaTime);		//Handled after audioManager
 

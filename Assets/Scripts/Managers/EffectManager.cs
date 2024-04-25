@@ -47,8 +47,8 @@ namespace VideoPoker
 
         public void EndGameEffects(Hand highestHand, float playerGain)
         {
-            
-            AddTextEffectToQueue(new TextEffect(2, "+ $" + playerGain.ToString("F2")));
+            string displayMessage = "+ " + GameManager.Instance.currencyManager.GetCurrencyString(playerGain);
+            AddTextEffectToQueue(new TextEffect(2, displayMessage));
 
             if (highestHand.payout > 3)
             {

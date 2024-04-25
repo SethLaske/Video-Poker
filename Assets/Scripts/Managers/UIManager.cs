@@ -36,6 +36,9 @@ namespace VideoPoker
 		private Button decreaseBetButton = null;
 		private Text decreaseBetText;
 
+        [SerializeField]
+        private Button toggleCurrencyButton = null;
+
         [SerializeField] private string introGameMessage;
         [SerializeField] private string defaultGameMessage;
 		[SerializeField] private string insufficientFundsMessage;
@@ -53,6 +56,7 @@ namespace VideoPoker
 			helpButton.onClick.AddListener(OnHelpButtonPressed);
 			increaseBetButton.onClick.AddListener(OnIncreaseBetButtonPressed);
 			decreaseBetButton.onClick.AddListener(OnDecreaseBetButtonPressed);
+			toggleCurrencyButton.onClick.AddListener(OnToggleCurencyButtonPressed);
             
 			betButton.interactable = true;
             drawButton.interactable = false;
@@ -60,15 +64,14 @@ namespace VideoPoker
 			increaseBetButton.interactable = true;
 			decreaseBetButton.interactable = true;
 
-			increaseBetText = increaseBetButton.GetComponentInChildren<Text>();
-			increaseBetText.text = "+ $" + GameManager.Instance.gameRules.betIncrement.ToString("F2");
-
-            decreaseBetText = decreaseBetButton.GetComponentInChildren<Text>();
-            decreaseBetText.text = "- $" + GameManager.Instance.gameRules.betIncrement.ToString("F2");
-
             winningText.text = introGameMessage;
-            UpdatePlayerBalance(GameManager.Instance.playerBalanceManager.GetBalance());
-            betText.text = "Bet: $" + GameManager.Instance.playerBalanceManager.GetBet().ToString("F2");
+
+            UpdatePlayerBalance();
+            UpdatePlayerBet();
+
+			increaseBetText = increaseBetButton.GetComponentInChildren<Text>();
+            decreaseBetText = decreaseBetButton.GetComponentInChildren<Text>();
+			UpdateBetIncrementTexts();
         }
 
         //-//////////////////////////////////////////////////////////////////////
@@ -81,15 +84,29 @@ namespace VideoPoker
 			hand.winningEffect?.Invoke();
 		}
 
-		public void UpdatePlayerBalance(float newBalance) { 
-			currentBalanceText.text = "Balance: $" + newBalance.ToString("F2");
+		public void UpdatePlayerBalance() {
+			float balance = GameManager.Instance.playerBalanceManager.GetBalance();
+			currentBalanceText.text = "Balance: " + GameManager.Instance.currencyManager.GetCurrencyString(balance);
 		}
 
-		//-//////////////////////////////////////////////////////////////////////
-		///
-		/// Event that triggers when buttons are pressed
-		/// 
-		private void OnBetButtonPressed()
+        public void UpdatePlayerBet()
+        {
+            float bet = GameManager.Instance.playerBalanceManager.GetBet();
+            betText.text = "Bet: " + GameManager.Instance.currencyManager.GetCurrencyString(bet);
+        }
+
+        public void UpdateBetIncrementTexts()
+        {
+			float increment = GameManager.Instance.gameRules.betIncrement;
+            increaseBetText.text = "+ " + GameManager.Instance.currencyManager.GetCurrencyString(increment);
+            decreaseBetText.text = "- " + GameManager.Instance.currencyManager.GetCurrencyString(increment);
+        }
+
+        //-//////////////////////////////////////////////////////////////////////
+        ///
+        /// Event that triggers when buttons are pressed
+        /// 
+        private void OnBetButtonPressed()
 		{
 			if (GameManager.Instance.StartGame())
 			{
@@ -127,14 +144,26 @@ namespace VideoPoker
 		private void OnIncreaseBetButtonPressed() {
             GameManager.Instance.audioManager.PlaySound(GameManager.Instance.audioManager.buttonPress);
 
-			betText.text = "Bet: $" + GameManager.Instance.playerBalanceManager.ChangeBet(GameManager.Instance.gameRules.betIncrement).ToString("F2");
+			GameManager.Instance.playerBalanceManager.ChangeBet(1 * GameManager.Instance.gameRules.betIncrement);
+
+			UpdatePlayerBet();
         }
 
 		private void OnDecreaseBetButtonPressed() {
             GameManager.Instance.audioManager.PlaySound(GameManager.Instance.audioManager.buttonPress);
 
-            betText.text = "Bet: $" + GameManager.Instance.playerBalanceManager.ChangeBet(-1 * GameManager.Instance.gameRules.betIncrement).ToString("F2");
+            GameManager.Instance.playerBalanceManager.ChangeBet(-1 * GameManager.Instance.gameRules.betIncrement);
+
+            UpdatePlayerBet();
         }
+
+		private void OnToggleCurencyButtonPressed() {
+			GameManager.Instance.currencyManager.ToggleCurrency();
+
+			UpdatePlayerBalance();
+			UpdatePlayerBet();
+			UpdateBetIncrementTexts();
+		}
 
 		//-//////////////////////////////////////////////////////////////////////
 		///
