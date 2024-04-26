@@ -9,7 +9,7 @@ namespace VideoPoker
     ///
     /// Manages the players balance and bet sizes
     /// 
-    public class PlayerBalanceManager : Manager
+    public class PlayerBalanceManager : Branch
     {
         [SerializeField] private float playerBalance = 20;
 
@@ -22,6 +22,7 @@ namespace VideoPoker
             betSize = GameManager.Instance.gameRules.betIncrement;
         }
 
+        
         public float GetBalance() { 
             return playerBalance;
         }
@@ -29,6 +30,11 @@ namespace VideoPoker
         public float GetBet() { 
             return betSize;
         }
+
+        //-//////////////////////////////////////////////////////////////////////
+        ///
+        /// Validation to ensure the balance and bet always remain within the bounds
+        /// 
 
         public float ChangeBalance(float change)
         {
@@ -59,6 +65,8 @@ namespace VideoPoker
             else { 
                 GameManager.Instance.audioManager.PlaySound(GameManager.Instance.audioManager.buttonReject);
             }
+
+            GameManager.Instance.uiManager.UpdatePlayerBetText();
 
             return betSize;
         }

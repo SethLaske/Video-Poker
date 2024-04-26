@@ -7,7 +7,7 @@ namespace VideoPoker
 	///
 	/// Manages UI including button events and updates to text fields
 	/// 
-	public class UIManager : Manager
+	public class UIManager : Branch
 	{
 		[SerializeField]
 		private Text currentBalanceText = null;
@@ -46,6 +46,8 @@ namespace VideoPoker
         
 
 		//-//////////////////////////////////////////////////////////////////////
+		///
+		/// Set up the UI buttons and text fields
 		/// 
 		protected override void Initialize()
 		{
@@ -107,7 +109,7 @@ namespace VideoPoker
 
         //-//////////////////////////////////////////////////////////////////////
         ///
-        /// Event that triggers when buttons are pressed
+        /// Events that triggers when buttons are pressed
         /// 
         private void OnBetButtonPressed()
 		{
@@ -149,8 +151,6 @@ namespace VideoPoker
 
 			GameManager.Instance.playerBalanceManager.ChangeBet(1 * GameManager.Instance.gameRules.betIncrement);
 
-			UpdatePlayerBetText();
-
             GameManager.Instance.helpManager.UpdatePayoutTable();
         }
 
@@ -158,8 +158,6 @@ namespace VideoPoker
             GameManager.Instance.audioManager.PlaySound(GameManager.Instance.audioManager.buttonPress);
 
             GameManager.Instance.playerBalanceManager.ChangeBet(-1 * GameManager.Instance.gameRules.betIncrement);
-
-            UpdatePlayerBetText();
 
             GameManager.Instance.helpManager.UpdatePayoutTable();
         }

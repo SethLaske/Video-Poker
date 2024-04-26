@@ -9,12 +9,16 @@ namespace VideoPoker
     ///
     /// Manages maintaining currency conversions, currently US $ and Credits
     /// 
-    public class CurrencyManager : Manager
+    public class CurrencyManager : Branch
     {
         private bool isCredits;
 
         [SerializeField] private float creditsPerDollar = 4;
 
+        //-//////////////////////////////////////////////////////////////////////
+        ///
+        /// Returns a formatted string in the current currency type
+        /// 
         public string GetCurrencyString(float dollars)
         {
             if (isCredits)
@@ -32,6 +36,10 @@ namespace VideoPoker
             }
         }
 
+        //-//////////////////////////////////////////////////////////////////////
+        ///
+        /// Switched currency type and triggers UI and Help managers to readjust all currencies
+        /// 
         public void ToggleCurrency()
         {
             isCredits = !isCredits;

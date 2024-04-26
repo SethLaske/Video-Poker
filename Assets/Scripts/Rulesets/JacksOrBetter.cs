@@ -28,13 +28,41 @@ namespace VideoPoker
 
 
         private Card[] cards;
-        public override Hand GetHandRank(Card[] newCards)
-        {
-            cards = SortCardsByValue(newCards);
 
-            /*for (int i = 0; i < cards.Length; i++) {
-                Debug.Log($"Card {(i+1)} is the {cards[i].value} of {cards[i].suit}");
-            }*/
+        const int aceCardValue = 0;
+        const int nineCardValue = 8;
+        const int tenCardValue = 9;
+        const int jackCardValue = 10;
+
+        public override Hand[] GetAvailableHands()
+        {
+            Hand[] hands = new Hand[9];
+
+            hands[0] = royalFlush;
+            hands[1] = straightFlush;
+            hands[2] = quads;
+            hands[3] = fullHouse;
+            hands[4] = flush;
+            hands[5] = straight;
+            hands[6] = trips;
+            hands[7] = twoPair;
+            hands[8] = jackOrBetter;
+
+            return hands;
+        }
+
+        //-//////////////////////////////////////////////////////////////////////
+        ///
+        /// Flush and Straights will be checked first, followed by set hands
+        /// Set hands will be distinguished by the number of unique cards and their counts
+        /// 
+        public override Hand GetHandRank(Card[] playerHand)
+        {
+            if (playerHand.Length != 5) {   //All hands in Jacks or Better will be 5 cards
+                return nothing;
+            }
+
+            cards = SortCardsByValue(playerHand);
 
             bool isFlush = IsFlush();
 
@@ -42,7 +70,7 @@ namespace VideoPoker
 
             if (isFlush && isStraight)
             {
-                //If its a valid straight, then checking for the ace and king is enough to ensure its royal
+                //If already a straight, then checking for the ace and king is enough to ensure its royal
                 if (cards[0].value == 0 && cards[4].value == 12)
                 {
                     return royalFlush;
@@ -63,13 +91,12 @@ namespace VideoPoker
 
             Dictionary<int, int> valueCounts = GetValueCounts();
 
-            if (valueCounts.Count >= 5)
+            if (valueCounts.Count >= 5)     //5 unique cards that form neither straight nor flush guarantees nothing
             {
-                //5 unique cards that form neither straight nor flush results in nothing
                 return nothing;
             }
 
-            if (valueCounts.Count == 2)
+            if (valueCounts.Count == 2)     //2 unique cards determines a quad or full house
             {
                 if (valueCounts.ContainsValue(4))
                 {
@@ -78,7 +105,7 @@ namespace VideoPoker
                 return fullHouse;
             }
 
-            if (valueCounts.Count == 3)
+            if (valueCounts.Count == 3)     //3 unique cards determines a trip or two pair
             {
                 if (valueCounts.ContainsValue(3))
                 {
@@ -87,7 +114,7 @@ namespace VideoPoker
                 return twoPair;
             }
 
-            for (int i = 10; i <= 13; i++)
+            for (int i = jackCardValue; i <= 13; i++)      //Checking for any cards from jack to ace that have a count greater than 1
             {
                 int value = i % 13;
                 if (valueCounts.ContainsKey(value) && valueCounts[value] > 1)
@@ -99,24 +126,7 @@ namespace VideoPoker
             return nothing;
         }
 
-        public override Hand[] GetAvailableHands()
-        {
-            Hand[] hands = new Hand[9];
-
-            hands[0] = royalFlush;
-            hands[1] = straightFlush;
-            hands[2] = quads;
-            hands[3] = fullHouse;
-            hands[4] = flush;
-            hands[5] = straight;
-            hands[6] = trips;
-            hands[7] = twoPair;
-            hands[8] = jackOrBetter;
-
-            return hands;
-        }
-
-        //ChatGPT assisted with this sorting syntax
+        //ChatGPT wrote this sorting syntax
         private Card[] SortCardsByValue(Card[] unsortedCards)
         {
             return unsortedCards.OrderBy(card => card.value).ToArray();
@@ -140,9 +150,9 @@ namespace VideoPoker
         {
             int firstValue = cards[0].value;
 
-            if (firstValue == 0 && cards[1].value == 9)
+            if (firstValue == aceCardValue && cards[1].value == tenCardValue)
             {                                                   //Aces can only be in a straight Ace-5 or 10-Ace. 
-                firstValue = 8;                                 //If the first value is an ace and the second a 10
+                firstValue = nineCardValue;                     //If the first value is an ace and the second a 10
             }                                                   //then the Ace will be temporarily counted as a 9 to check for a straight
 
             for (int i = 1; i < cards.Length; i++)
@@ -173,6 +183,7 @@ namespace VideoPoker
 
             return valueCounts;
         }
+
 
 
     }

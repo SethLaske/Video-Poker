@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace VideoPoker
 {
-    public class EffectManager : Manager
+    public class EffectManager : Branch
     {
         [SerializeField] private ParticleSystem particles;
 

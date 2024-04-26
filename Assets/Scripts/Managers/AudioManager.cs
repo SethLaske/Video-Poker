@@ -11,7 +11,7 @@ namespace VideoPoker
     /// Formerly used in several of my projects, this was simplified for this project
     /// 
 
-    public class AudioManager : Manager
+    public class AudioManager : Branch
     {
         private Queue<AudioSource> availableSources = new Queue<AudioSource>();
 

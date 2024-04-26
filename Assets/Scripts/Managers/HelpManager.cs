@@ -4,12 +4,18 @@ using UnityEngine;
 
 namespace VideoPoker
 {
-    public class HelpManager : Manager
+    //-//////////////////////////////////////////////////////////////////////
+    ///
+    /// Manages the help systems, specifically displaying a current payout table to players
+    /// 
+    public class HelpManager : Branch
     {
         [SerializeField] private GameObject payTable;
         [SerializeField] private HandDisplayObject handDisplayObjectPrefab;
 
         private List<HandDisplayObject> displayObjects = new List<HandDisplayObject>();
+
+        
         protected override void Initialize()
         {
             base.Initialize();
@@ -18,10 +24,9 @@ namespace VideoPoker
             payTable.gameObject.SetActive(false);
         }
 
-        public void TogglePayoutTable() { 
-            payTable.gameObject.SetActive(!payTable.gameObject.activeInHierarchy);
-        }
-
+        ///
+        /// Creating displays for each possible hand and populating it with the hand
+        /// 
         private void FillPayoutTable() { 
             Hand[] payoutHands = GameManager.Instance.gameRules.GetAvailableHands();
 
@@ -33,6 +38,15 @@ namespace VideoPoker
                 displayObjects.Add( newObject );
             }
         }
+
+        public void TogglePayoutTable() { 
+            payTable.gameObject.SetActive(!payTable.gameObject.activeInHierarchy);
+        }
+
+        //-//////////////////////////////////////////////////////////////////////
+        ///
+        /// Updating the table to reflect current payouts
+        /// 
 
         public void UpdatePayoutTable() { 
             foreach (HandDisplayObject hand in displayObjects)

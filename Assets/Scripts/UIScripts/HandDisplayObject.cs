@@ -21,6 +21,10 @@ namespace VideoPoker
             UpdateUI();
         }
 
+        //-//////////////////////////////////////////////////////////////////////
+        ///
+        /// Posting the current payout in the proper currency for each hand
+        /// 
         public void UpdateUI()
         {
             float currentPayout = hand.GetPayoutAmount();

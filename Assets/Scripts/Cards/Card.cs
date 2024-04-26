@@ -5,10 +5,15 @@ using UnityEngine;
 
 namespace VideoPoker
 {
+    //-//////////////////////////////////////////////////////////////////////
+    ///
+    /// Store the attributes of each card
+    /// 
+
     [Serializable]
     public class Card
     {
-        [SerializeField] public int suit;
+        public int suit;
 
         public int value;
 

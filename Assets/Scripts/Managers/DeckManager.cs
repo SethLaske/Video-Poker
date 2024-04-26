@@ -9,7 +9,7 @@ namespace VideoPoker
     ///
     /// Manages shuffling and drawing cards from the deck
     /// 
-    public class DeckManager : Manager
+    public class DeckManager : Branch
     {
         [Tooltip ("Sprites should be sorted by Suit then ordered Ace to King")]
         [SerializeField] private List<Sprite> cardSprites; 

@@ -13,7 +13,7 @@ namespace VideoPoker
     /// 
     public abstract class GameRules : ScriptableObject
     {
-        public abstract Hand GetHandRank(Card[] newCards);
+        public abstract Hand GetHandRank(Card[] playerHand);
         public abstract Hand[] GetAvailableHands();
 
         public float maxBetSize;
@@ -21,6 +21,8 @@ namespace VideoPoker
     }
 
     //-//////////////////////////////////////////////////////////////////////
+    ///
+    /// Organize the various hands a player
     ///
 
     [Serializable]
@@ -32,6 +34,10 @@ namespace VideoPoker
 
         [SerializeField] private List<PayoutThreshold> customPayouts = new List<PayoutThreshold>();
 
+        //-//////////////////////////////////////////////////////////////////////
+        ///
+        /// Get the amount a player will win from the hand with their current bet size
+        ///
         public float GetPayoutAmount()
         {
             float betAmount = GameManager.Instance.playerBalanceManager.GetBet();
@@ -51,9 +57,15 @@ namespace VideoPoker
 
     }
 
+    //-//////////////////////////////////////////////////////////////////////
+    ///
+    /// Custom thresholds to allow for different player multipliers based on player bet size
+    ///
     [Serializable]
     public struct PayoutThreshold {
-        [Tooltip ("In dollars")] public float lowerLimit;
+        [Tooltip ("In dollars")] 
+        public float lowerLimit;
+
         public float newMultiplier;
     }
 }

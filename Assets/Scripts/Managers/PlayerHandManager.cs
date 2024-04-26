@@ -9,7 +9,7 @@ namespace VideoPoker
     ///
     /// Manages the players actions and cards
     /// 
-    public class PlayerHandManager : Manager
+    public class PlayerHandManager : Branch
     {
         [SerializeField] private CardUI[] cardUIs = new CardUI[5];
         [SerializeField] private PlayerCard[] playerCards;
@@ -32,6 +32,17 @@ namespace VideoPoker
 
             ResetHand();
         }
+
+        public override void Tick(float delta) { 
+
+            foreach (CardUI cardUI in cardUIs) {
+                cardUI.Tick(delta);
+            }
+
+            base.Tick(delta);   //The cardUIs must run their initializing functions before the PlayerHandManager
+
+        }
+
         public void ResetHand()
         {
             Card defaultCard = GameManager.Instance.deckManager.GetDefaultCard();
@@ -43,12 +54,15 @@ namespace VideoPoker
             }
         }
 
+        //-//////////////////////////////////////////////////////////////////////
+        ///
+        /// Starts the first hand sequence, drawing 5 new cards
+        /// 
         public void NewHand()
         {
             for (int i = 0; i < playerCards.Length; i++)
             {
                 playerCards[i].ClearCard();
-                //SetCard(i, GameManager.Instance.deckManager.DrawCard());
             }
 
             StartCoroutine(DrawFirstHand());
@@ -66,6 +80,10 @@ namespace VideoPoker
             GameManager.Instance.FirstHandDone();
         }
 
+        //-//////////////////////////////////////////////////////////////////////
+        ///
+        /// Draws nonheld cards before triggering the end of the game
+        /// 
         public void DrawNewCards()
         {
             for (int i = 0; i < playerCards.Length; i++)
@@ -73,7 +91,6 @@ namespace VideoPoker
                 if (playerCards[i].onHold == false)
                 {
                     playerCards[i].ClearCard();
-                    //SetCard(i, GameManager.Instance.deckManager.DrawCard());
                 }
             }
 
@@ -95,6 +112,11 @@ namespace VideoPoker
 
             GameManager.Instance.EndGame();
         }
+
+        //-//////////////////////////////////////////////////////////////////////
+        ///
+        /// 
+        /// 
 
         private void SetCard(int index, Card newCard)
         {
@@ -132,7 +154,7 @@ namespace VideoPoker
 
     //-//////////////////////////////////////////////////////////////////////
     ///
-    /// Track all of each of the players 5 card slots
+    /// Controls one of card slots
     /// 
     [Serializable]
     public class PlayerCard

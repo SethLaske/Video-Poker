@@ -5,7 +5,11 @@ using UnityEngine.UI;
 
 namespace VideoPoker
 {
-    public class CardUI : MonoBehaviour
+    //-//////////////////////////////////////////////////////////////////////
+    ///
+    /// Maintaing the UI for each card on screen
+    /// 
+    public class CardUI : Branch
     {
         [SerializeField] private Image cardImage;
         [SerializeField] private GameObject holdObject;
@@ -15,11 +19,31 @@ namespace VideoPoker
         [SerializeField] private Color holdColor;
         private ColorBlock colorBlock;
 
-        private void Awake()
+        protected override void Initialize()
         {
+            base.Initialize();
+
             colorBlock = cardButton.colors;
+
+            if (cardImage == null)
+            {
+                Debug.LogError("CardUI - cardImage - not assigned");
+            }
+
+            if (holdObject == null)
+            {
+                Debug.LogError("CardUI - holdObject - not assigned");
+            }
+
+            if (cardButton == null ) {
+                Debug.LogError("CardUI - cardButton - not assigned");
+            }
         }
 
+        //-//////////////////////////////////////////////////////////////////////
+        ///
+        /// Functions to change the appearance or hold of a card
+        /// 
         public void SetCardImage(Sprite sprite)
         {
             cardImage.sprite = sprite;

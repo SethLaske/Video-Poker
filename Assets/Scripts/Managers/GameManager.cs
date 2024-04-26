@@ -6,24 +6,28 @@ namespace VideoPoker
 	/// 
 	/// The main game manager
 	/// 
-	public class GameManager : Manager
+	public class GameManager : Branch
 	{
 		public static GameManager Instance;
 
-		[SerializeField] public UIManager uiManager;
-		[SerializeField] public DeckManager deckManager;
-		[SerializeField] public PlayerBalanceManager playerBalanceManager;
-		[SerializeField] public HelpManager helpManager;
-		[SerializeField] public EffectManager effectManager;
-		[SerializeField] public AudioManager audioManager;
-		[SerializeField] public PlayerHandManager playerHandManager;
-		[SerializeField] public CurrencyManager currencyManager;
+		[Header ("Managers")]
+		public UIManager uiManager;
+		public DeckManager deckManager;
+		public PlayerBalanceManager playerBalanceManager;
+		public HelpManager helpManager;
+		public EffectManager effectManager;
+		public AudioManager audioManager;
+		public PlayerHandManager playerHandManager;
+		public CurrencyManager currencyManager;
 
-
-		public GameRules gameRules;
+        [Header("Game Rules")]
+        public GameRules gameRules;
 
 		public bool isGameActive { get; private set; }
+
 		//-//////////////////////////////////////////////////////////////////////
+		///
+		/// Create Singleton immediately
 		/// 
 		void Awake()
 		{
@@ -42,7 +46,17 @@ namespace VideoPoker
 		{
 			base.Initialize();
 
-			isGameActive = false;
+			if (uiManager == null) Debug.LogError("UIManager not assigned to GameManager");
+            if (deckManager == null) Debug.LogError("DeckManager not assigned to GameManager");
+            if (playerBalanceManager == null) Debug.LogError("PlayerBalanceManager not assigned to GameManager");
+            if (helpManager == null) Debug.LogError("HelpManager not assigned to GameManager");
+            if (effectManager == null) Debug.LogError("EffectManager not assigned to GameManager");
+            if (audioManager == null) Debug.LogError("AudioManager not assigned to GameManager");
+            if (playerHandManager == null) Debug.LogError("PlayerHandManager not assigned to GameManager");
+            if (currencyManager == null) Debug.LogError("CurrencyManager not assigned to GameManager");
+            if (gameRules == null) Debug.LogError("GameRules not assigned to GameManager");
+
+            isGameActive = false;
 		}
 
         private void Update()
