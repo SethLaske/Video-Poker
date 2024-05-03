@@ -70,17 +70,17 @@ namespace VideoPoker
 		{
 			base.Tick(delta);
 
-            audioManager.Tick(Time.deltaTime);
-            playerBalanceManager.Tick(Time.deltaTime);
-            deckManager.Tick(Time.deltaTime);
-            effectManager.Tick(Time.deltaTime);
-            helpManager.Tick(Time.deltaTime);
-            effectManager.Tick(Time.deltaTime);
-			currencyManager.Tick(Time.deltaTime);
+            audioManager.Tick(delta);
+            playerBalanceManager.Tick(delta);
+            deckManager.Tick(delta);
+            effectManager.Tick(delta);
+            helpManager.Tick(delta);
+            effectManager.Tick(delta);
+			currencyManager.Tick(delta);
 
-            playerHandManager.Tick(Time.deltaTime);		//Handled after audioManager
+            playerHandManager.Tick(delta);		//Handled after audioManager
 
-            uiManager.Tick(Time.deltaTime);		//Handled after playerBalanceManager
+            uiManager.Tick(delta);		//Handled after playerBalanceManager
 		}
 
         //-//////////////////////////////////////////////////////////////////////
