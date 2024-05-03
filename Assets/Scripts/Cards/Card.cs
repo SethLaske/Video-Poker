@@ -46,5 +46,10 @@ namespace VideoPoker
             Undefined
         }
 
+        public void SetCard(Suit suit, Value value) { 
+            this.suit = suit;
+            this.value = value;
+        }
+
     }
 }

@@ -463,6 +463,222 @@ MonoBehaviour:
   playerCards: []
   timeToFlipCard: 0.15
   deckController: {fileID: 388090480}
+--- !u!1 &257053978
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 257053980}
+  - component: {fileID: 257053979}
+  m_Layer: 0
+  m_Name: TESTS
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &257053979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 257053978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 564457797e81d234393b9c2583f76559, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameRules: {fileID: 11400000, guid: 17535a7805b398f4bba41f5369e9f4fa, type: 2}
+  testPairs:
+  - testedCards:
+    - suit: 0
+      value: 0
+      sprite: {fileID: 0}
+    - suit: 0
+      value: 9
+      sprite: {fileID: 0}
+    - suit: 0
+      value: 10
+      sprite: {fileID: 0}
+    - suit: 0
+      value: 11
+      sprite: {fileID: 0}
+    - suit: 0
+      value: 12
+      sprite: {fileID: 0}
+    expectedResult: Royal Flush
+  - testedCards:
+    - suit: 0
+      value: 8
+      sprite: {fileID: 0}
+    - suit: 0
+      value: 9
+      sprite: {fileID: 0}
+    - suit: 0
+      value: 10
+      sprite: {fileID: 0}
+    - suit: 0
+      value: 11
+      sprite: {fileID: 0}
+    - suit: 0
+      value: 12
+      sprite: {fileID: 0}
+    expectedResult: Straight Flush
+  - testedCards:
+    - suit: 0
+      value: 0
+      sprite: {fileID: 0}
+    - suit: 0
+      value: 1
+      sprite: {fileID: 0}
+    - suit: 0
+      value: 10
+      sprite: {fileID: 0}
+    - suit: 0
+      value: 11
+      sprite: {fileID: 0}
+    - suit: 0
+      value: 12
+      sprite: {fileID: 0}
+    expectedResult: Flush
+  - testedCards:
+    - suit: 0
+      value: 0
+      sprite: {fileID: 0}
+    - suit: 0
+      value: 9
+      sprite: {fileID: 0}
+    - suit: 0
+      value: 10
+      sprite: {fileID: 0}
+    - suit: 0
+      value: 11
+      sprite: {fileID: 0}
+    - suit: 3
+      value: 12
+      sprite: {fileID: 0}
+    expectedResult: Straight
+  - testedCards:
+    - suit: 0
+      value: 0
+      sprite: {fileID: 0}
+    - suit: 1
+      value: 0
+      sprite: {fileID: 0}
+    - suit: 2
+      value: 0
+      sprite: {fileID: 0}
+    - suit: 3
+      value: 0
+      sprite: {fileID: 0}
+    - suit: 3
+      value: 12
+      sprite: {fileID: 0}
+    expectedResult: Four of a Kind
+  - testedCards:
+    - suit: 0
+      value: 0
+      sprite: {fileID: 0}
+    - suit: 1
+      value: 0
+      sprite: {fileID: 0}
+    - suit: 2
+      value: 0
+      sprite: {fileID: 0}
+    - suit: 2
+      value: 12
+      sprite: {fileID: 0}
+    - suit: 3
+      value: 12
+      sprite: {fileID: 0}
+    expectedResult: Full House
+  - testedCards:
+    - suit: 0
+      value: 0
+      sprite: {fileID: 0}
+    - suit: 1
+      value: 0
+      sprite: {fileID: 0}
+    - suit: 2
+      value: 0
+      sprite: {fileID: 0}
+    - suit: 2
+      value: 11
+      sprite: {fileID: 0}
+    - suit: 3
+      value: 12
+      sprite: {fileID: 0}
+    expectedResult: Three of a Kind
+  - testedCards:
+    - suit: 0
+      value: 0
+      sprite: {fileID: 0}
+    - suit: 1
+      value: 0
+      sprite: {fileID: 0}
+    - suit: 2
+      value: 5
+      sprite: {fileID: 0}
+    - suit: 2
+      value: 12
+      sprite: {fileID: 0}
+    - suit: 3
+      value: 12
+      sprite: {fileID: 0}
+    expectedResult: Two Pair
+  - testedCards:
+    - suit: 0
+      value: 10
+      sprite: {fileID: 0}
+    - suit: 1
+      value: 10
+      sprite: {fileID: 0}
+    - suit: 1
+      value: 11
+      sprite: {fileID: 0}
+    - suit: 1
+      value: 12
+      sprite: {fileID: 0}
+    - suit: 1
+      value: 0
+      sprite: {fileID: 0}
+    expectedResult: Jacks or Better
+  - testedCards:
+    - suit: 0
+      value: 0
+      sprite: {fileID: 0}
+    - suit: 0
+      value: 1
+      sprite: {fileID: 0}
+    - suit: 1
+      value: 10
+      sprite: {fileID: 0}
+    - suit: 0
+      value: 11
+      sprite: {fileID: 0}
+    - suit: 0
+      value: 12
+      sprite: {fileID: 0}
+    expectedResult: Nothing
+--- !u!4 &257053980
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 257053978}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 14.501209, y: 90.133316, z: -15.444757}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &269073556
 GameObject:
   m_ObjectHideFlags: 0
