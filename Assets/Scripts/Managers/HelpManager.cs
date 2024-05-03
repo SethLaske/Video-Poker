@@ -11,9 +11,9 @@ namespace VideoPoker
     public class HelpManager : Branch
     {
         [SerializeField] private GameObject payTable;
-        [SerializeField] private HandDisplayObject handDisplayObjectPrefab;
+        [SerializeField] private HandPayoutView handPayoutViewPrefab;
 
-        private List<HandDisplayObject> displayObjects = new List<HandDisplayObject>();
+        private List<HandPayoutView> displayObjects = new List<HandPayoutView>();
 
         
         protected override void Initialize()
@@ -30,12 +30,12 @@ namespace VideoPoker
         private void FillPayoutTable() { 
             Hand[] payoutHands = GameManager.Instance.gameRules.GetAvailableHands();
 
-            HandDisplayObject newObject = null;
+            HandPayoutView newView = null;
             foreach (Hand hand in payoutHands)
             {
-                newObject = Instantiate(handDisplayObjectPrefab, payTable.transform);
-                newObject.PopulateUI(hand);
-                displayObjects.Add( newObject );
+                newView = Instantiate(handPayoutViewPrefab, payTable.transform);
+                newView.PopulatePayoutView(hand);
+                displayObjects.Add( newView );
             }
         }
 
@@ -49,9 +49,9 @@ namespace VideoPoker
         /// 
 
         public void UpdatePayoutTable() { 
-            foreach (HandDisplayObject hand in displayObjects)
+            foreach (HandPayoutView hand in displayObjects)
             {
-                hand.UpdateUI();
+                hand.UpdatePayoutView();
             }
         }
     }

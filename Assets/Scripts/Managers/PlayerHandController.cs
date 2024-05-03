@@ -9,24 +9,29 @@ namespace VideoPoker
     ///
     /// Manages the players actions and cards
     /// 
-    public class PlayerHandManager : Branch
+    public class PlayerHandController : Branch
     {
-        [SerializeField] private CardUI[] cardUIs = new CardUI[5];
+        [SerializeField] private CardView[] cardViews = new CardView[5];
         [SerializeField] private PlayerCard[] playerCards;
 
         [SerializeField] private float timeToFlipCard;
+
+        public DeckController deckController;
 
         protected override void Initialize()
         {
             base.Initialize();
 
-            playerCards = new PlayerCard[cardUIs.Length];
-            for (int i = 0; i < cardUIs.Length; i++)
+            if (deckController == null) Debug.LogError("DeckController not assigned to PlayerHandController");
+
+            playerCards = new PlayerCard[cardViews.Length];
+            for (int i = 0; i < cardViews.Length; i++)
             {
                 int index = i;
-                cardUIs[i].cardButton.onClick.AddListener(() => ToggleCard(index));
+                cardViews[i].cardButton.onClick.AddListener(() => ToggleCard(index));
 
-                PlayerCard newPlayerCard = new PlayerCard(cardUIs[i]);
+                PlayerCard newPlayerCard = new PlayerCard(cardViews[i]);
+                newPlayerCard.cardBack = deckController.cardBackSprite;
                 playerCards[i] = newPlayerCard;
             }
 
@@ -35,7 +40,9 @@ namespace VideoPoker
 
         public override void Tick(float delta) { 
 
-            foreach (CardUI cardUI in cardUIs) {
+            deckController.Tick(delta);
+
+            foreach (CardView cardUI in cardViews) {
                 cardUI.Tick(delta);
             }
 
@@ -45,7 +52,7 @@ namespace VideoPoker
 
         public void ResetHand()
         {
-            Card defaultCard = GameManager.Instance.deckManager.GetDefaultCard();
+            Card defaultCard = deckController.GetDefaultCard();
 
 
             foreach (PlayerCard card in playerCards)
@@ -60,6 +67,8 @@ namespace VideoPoker
         /// 
         public void NewHand()
         {
+            deckController.ShuffleDeck();
+
             for (int i = 0; i < playerCards.Length; i++)
             {
                 playerCards[i].ClearCard();
@@ -73,7 +82,7 @@ namespace VideoPoker
             yield return new WaitForSeconds(timeToFlipCard);
             for (int i = 0; i < playerCards.Length; i++)
             {
-                SetCard(i, GameManager.Instance.deckManager.DrawCard());
+                SetCard(i, deckController.DrawCard());
                 yield return new WaitForSeconds(timeToFlipCard);
             }
 
@@ -105,7 +114,7 @@ namespace VideoPoker
             {
                 if (playerCards[i].onHold == false)
                 {
-                    SetCard(i, GameManager.Instance.deckManager.DrawCard());
+                    SetCard(i, deckController.DrawCard());
                     yield return new WaitForSeconds(timeToFlipCard);
                 }
             }
@@ -160,25 +169,27 @@ namespace VideoPoker
     public class PlayerCard
     {
 
-        public Card card;
-        CardUI cardUI;
+        public Card card { get; private set; }
+        CardView cardView;
         public bool onHold = false;
 
-        public PlayerCard(CardUI cardUI)
+        public Sprite cardBack;
+
+        public PlayerCard(CardView cardUI)
         {
-            this.cardUI = cardUI;
+            this.cardView = cardUI;
         }
 
         public void ClearCard() {
-            cardUI.SetCardImage(GameManager.Instance.deckManager.cardBackSprite);
+            cardView.SetCardImage(cardBack);
         }
         public void SetCard(Card newCard)
         {
             card = newCard;
             onHold = false;
 
-            cardUI.SetCardImage(card.sprite);
-            cardUI.SetHold(false);
+            cardView.SetCardImage(card.sprite);
+            cardView.SetHold(false);
 
             GameManager.Instance.audioManager.PlaySound(GameManager.Instance.audioManager.cardDeal);
         }
@@ -186,7 +197,7 @@ namespace VideoPoker
         public void ToggleCard()
         {
             onHold = !onHold;
-            cardUI.SetHold(onHold);
+            cardView.SetHold(onHold);
 
             GameManager.Instance.audioManager.PlaySound(GameManager.Instance.audioManager.cardPress);
         }

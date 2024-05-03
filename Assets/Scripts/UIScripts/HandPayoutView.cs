@@ -10,22 +10,22 @@ namespace VideoPoker
     ///
     /// Used for creating each entry in the payout table
     /// 
-    public class HandDisplayObject : MonoBehaviour
+    public class HandPayoutView : MonoBehaviour
     {
         [SerializeField] private Text handName;
         [SerializeField] private Text handMultiplier;
         private Hand hand;
-        public void PopulateUI(Hand hand) { 
+        public void PopulatePayoutView(Hand hand) { 
             this.hand = hand;
             handName.text = hand.name;
-            UpdateUI();
+            UpdatePayoutView();
         }
 
         //-//////////////////////////////////////////////////////////////////////
         ///
         /// Posting the current payout in the proper currency for each hand
         /// 
-        public void UpdateUI()
+        public void UpdatePayoutView()
         {
             float currentPayout = hand.GetPayoutAmount();
             handMultiplier.text = GameManager.Instance.currencyManager.GetCurrencyString(currentPayout);

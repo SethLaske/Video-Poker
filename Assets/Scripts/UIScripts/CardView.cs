@@ -9,7 +9,7 @@ namespace VideoPoker
     ///
     /// Maintaing the UI for each card on screen
     /// 
-    public class CardUI : Branch
+    public class CardView : Branch
     {
         [SerializeField] private Image cardImage;
         [SerializeField] private GameObject holdObject;

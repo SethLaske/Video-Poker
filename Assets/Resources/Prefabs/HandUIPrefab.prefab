@@ -168,7 +168,7 @@ GameObject:
   - component: {fileID: 6834962488414553477}
   - component: {fileID: 3927477282449968022}
   - component: {fileID: 1213897344721646407}
-  - component: {fileID: 7967880221293308959}
+  - component: {fileID: 6820854712047108667}
   m_Layer: 5
   m_Name: HandUIPrefab
   m_TagString: Untagged
@@ -244,7 +244,7 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &7967880221293308959
+--- !u!114 &6820854712047108667
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -253,7 +253,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4782400484686447131}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 741349f5fa802cf4fbe94b81231192b6, type: 3}
+  m_Script: {fileID: 11500000, guid: 7fe7ffc5b9db8a843bf64d9a9c50c0c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   handName: {fileID: 7114645889685011905}

@@ -12,15 +12,17 @@ namespace VideoPoker
 
 		[Header ("Managers")]
 		public UIManager uiManager;
-		public DeckManager deckManager;
+		
 		public PlayerBalanceManager playerBalanceManager;
 		public HelpManager helpManager;
 		public EffectManager effectManager;
 		public AudioManager audioManager;
-		public PlayerHandManager playerHandManager;
 		public CurrencyManager currencyManager;
 
-        [Header("Game Rules")]
+		[Header("Controllers")]
+		public PlayerHandController playerHandController;
+        
+		[Header("Game Rules")]
         public GameRules gameRules;
 
 		public bool isGameActive { get; private set; }
@@ -47,12 +49,11 @@ namespace VideoPoker
 			base.Initialize();
 
 			if (uiManager == null) Debug.LogError("UIManager not assigned to GameManager");
-            if (deckManager == null) Debug.LogError("DeckManager not assigned to GameManager");
             if (playerBalanceManager == null) Debug.LogError("PlayerBalanceManager not assigned to GameManager");
             if (helpManager == null) Debug.LogError("HelpManager not assigned to GameManager");
             if (effectManager == null) Debug.LogError("EffectManager not assigned to GameManager");
             if (audioManager == null) Debug.LogError("AudioManager not assigned to GameManager");
-            if (playerHandManager == null) Debug.LogError("PlayerHandManager not assigned to GameManager");
+            if (playerHandController == null) Debug.LogError("PlayerHandController not assigned to GameManager");
             if (currencyManager == null) Debug.LogError("CurrencyManager not assigned to GameManager");
             if (gameRules == null) Debug.LogError("GameRules not assigned to GameManager");
 
@@ -72,13 +73,12 @@ namespace VideoPoker
 
             audioManager.Tick(delta);
             playerBalanceManager.Tick(delta);
-            deckManager.Tick(delta);
             effectManager.Tick(delta);
             helpManager.Tick(delta);
             effectManager.Tick(delta);
 			currencyManager.Tick(delta);
 
-            playerHandManager.Tick(delta);		//Handled after audioManager
+            playerHandController.Tick(delta);		//Handled after audioManager
 
             uiManager.Tick(delta);		//Handled after playerBalanceManager
 		}
@@ -99,9 +99,8 @@ namespace VideoPoker
 				return false;
             }
 
-            deckManager.ShuffleDeck();
-			playerHandManager.ResetHand();
-			playerHandManager.NewHand();
+			playerHandController.ResetHand();
+			playerHandController.NewHand();
 
 			return true;
 		}
@@ -111,14 +110,14 @@ namespace VideoPoker
 		}
 
 		public bool DrawNewCards() {
-            playerHandManager.DrawNewCards();
+            playerHandController.DrawNewCards();
 
 			return true;
         }
 
 		public void EndGame() { 
 
-            Hand highestHand = gameRules.GetHandRank(playerHandManager.GetCurrentCardArray());
+            Hand highestHand = gameRules.GetHandRank(playerHandController.GetCurrentCardArray());
 
             uiManager.DisplayResults(highestHand);
 
