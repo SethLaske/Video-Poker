@@ -113,6 +113,12 @@ namespace VideoPoker
         /// 
         private void OnBetButtonPressed()
 		{
+			//Code solution to the help menu covering the game, other option is to handle it on the unity side
+			if (GameManager.Instance.helpManager.isHelpScreenOn) {
+                GameManager.Instance.audioManager.PlaySound(GameManager.Instance.audioManager.buttonReject);
+				return;
+            }
+
 			if (GameManager.Instance.StartGame())
 			{
 				winningText.text = defaultGameMessage;
@@ -132,7 +138,13 @@ namespace VideoPoker
         }
 
 		private void OnDrawButtonPressed() {
-			if (GameManager.Instance.DrawNewCards()) { 
+            if (GameManager.Instance.helpManager.isHelpScreenOn)
+            {
+                GameManager.Instance.audioManager.PlaySound(GameManager.Instance.audioManager.buttonReject);
+                return;
+            }
+
+            if (GameManager.Instance.DrawNewCards()) { 
 				drawButton.interactable = false;
 
 				GameManager.Instance.audioManager.PlaySound(GameManager.Instance.audioManager.buttonPress);

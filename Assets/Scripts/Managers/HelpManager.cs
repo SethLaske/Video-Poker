@@ -15,12 +15,15 @@ namespace VideoPoker
 
         private List<HandPayoutView> displayObjects = new List<HandPayoutView>();
 
-        
+        public bool isHelpScreenOn { get; private set; }
+
         protected override void Initialize()
         {
             base.Initialize();
 
             FillPayoutTable();
+
+            isHelpScreenOn = false;
             payTable.gameObject.SetActive(false);
         }
 
@@ -40,7 +43,8 @@ namespace VideoPoker
         }
 
         public void TogglePayoutTable() { 
-            payTable.gameObject.SetActive(!payTable.gameObject.activeInHierarchy);
+            isHelpScreenOn = !isHelpScreenOn;
+            payTable.gameObject.SetActive(isHelpScreenOn);
         }
 
         //-//////////////////////////////////////////////////////////////////////
