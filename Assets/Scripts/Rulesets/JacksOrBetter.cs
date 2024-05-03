@@ -29,11 +29,6 @@ namespace VideoPoker
 
         private Card[] cards;
 
-        const int aceCardValue = 0;
-        const int nineCardValue = 8;
-        const int tenCardValue = 9;
-        const int jackCardValue = 10;
-
         public override Hand[] GetAvailableHands()
         {
             Hand[] hands = new Hand[9];
@@ -70,8 +65,8 @@ namespace VideoPoker
 
             if (isFlush && isStraight)
             {
-                //If already a straight, then checking for the ace and king is enough to ensure its royal
-                if (cards[0].value == 0 && cards[4].value == 12)
+                //If already a straight, then checking for an ace and king is enough to ensure its royal
+                if (cards[0].value == Card.Value.Ace && cards[4].value == Card.Value.King)
                 {
                     return royalFlush;
                 }
@@ -114,7 +109,7 @@ namespace VideoPoker
                 return twoPair;
             }
 
-            for (int i = jackCardValue; i <= 13; i++)      //Checking for any cards from jack to ace that have a count greater than 1
+            for (int i = (int) Card.Value.Jack; i <= 13; i++)      //Checking for any cards from jack to ace that have a count greater than 1
             {
                 int value = i % 13;
                 if (valueCounts.ContainsKey(value) && valueCounts[value] > 1)
@@ -134,7 +129,7 @@ namespace VideoPoker
 
         private bool IsFlush()
         {
-            int firstSuit = cards[0].suit;
+            Card.Suit firstSuit = cards[0].suit;
             foreach (Card card in cards)
             {
                 if (card.suit != firstSuit)
@@ -148,11 +143,11 @@ namespace VideoPoker
 
         private bool IsStraight()
         {
-            int firstValue = cards[0].value;
+            Card.Value firstValue = Card.Value.Ace;
 
-            if (firstValue == aceCardValue && cards[1].value == tenCardValue)
+            if (firstValue == Card.Value.Ace && cards[1].value == Card.Value.Ten)
             {                                                   //Aces can only be in a straight Ace-5 or 10-Ace. 
-                firstValue = nineCardValue;                     //If the first value is an ace and the second a 10
+                firstValue = Card.Value.Nine;                     //If the first value is an ace and the second a 10
             }                                                   //then the Ace will be temporarily counted as a 9 to check for a straight
 
             for (int i = 1; i < cards.Length; i++)
@@ -171,13 +166,13 @@ namespace VideoPoker
             Dictionary<int, int> valueCounts = new Dictionary<int, int>();
             foreach (Card card in cards)
             {
-                if (valueCounts.ContainsKey(card.value))
+                if (valueCounts.ContainsKey((int)card.value))
                 {
-                    valueCounts[card.value]++;
+                    valueCounts[(int)card.value]++;
                 }
                 else
                 {
-                    valueCounts.Add(card.value, 1);
+                    valueCounts.Add((int)card.value, 1);
                 }
             }
 

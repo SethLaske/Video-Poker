@@ -160,7 +160,7 @@ namespace VideoPoker
     public class PlayerCard
     {
 
-        public Card card { get; private set; }
+        public Card card;
         CardUI cardUI;
         public bool onHold = false;
 

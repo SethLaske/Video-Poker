@@ -13,11 +13,38 @@ namespace VideoPoker
     [Serializable]
     public class Card
     {
-        public int suit;
+        public Suit suit;
 
-        public int value;
+        public Value value;
 
         public Sprite sprite;
+
+        public enum Value { 
+            Ace,
+            Two,
+            Three,
+            Four,
+            Five,
+            Six,
+            Seven,
+            Eight,
+            Nine,
+            Ten,
+            Jack,
+            Queen,
+            King,
+
+            Joker
+        }
+
+        public enum Suit { 
+            Clubs,
+            Diamonds,
+            Hearts,
+            Spades,
+
+            Undefined
+        }
 
     }
 }

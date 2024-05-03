@@ -33,13 +33,13 @@ namespace VideoPoker
 
                 if (i < normalCards)
                 {
-                    newCard.suit = i / 13;
-                    newCard.value = i % 13;
+                    newCard.suit = (Card.Suit) (i / 13);
+                    newCard.value = (Card.Value) (i % 13);
                 }
                 else
                 {
-                    newCard.suit = -1;
-                    newCard.value = -1;
+                    newCard.suit = Card.Suit.Undefined;
+                    newCard.value = Card.Value.Joker;
                 }
 
                 newCard.sprite = cardSprites[i];
@@ -70,8 +70,8 @@ namespace VideoPoker
 
         public Card GetDefaultCard() { 
             Card card = new Card();
-            card.suit = 0;
-            card.value = 0;
+            card.suit = Card.Suit.Undefined;
+            card.value = Card.Value.Joker;
             card.sprite = cardBackSprite;
             return card;
         }
